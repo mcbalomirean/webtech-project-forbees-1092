@@ -6,7 +6,7 @@ NoteBee gives students a way to create and share notes with each other, either i
 - To whom is this product addressed? <br />
 Our app is destined only for students, as it is a niche application, designed in order to help students organize their notes more efficiently.
 - What other similar existing products are there on the market? <br />
-StuDocu: an app where you can share and download study-related resources to help you save time and study efficiently.
-You can find it [here](https://www.studocu.com/). 
-Evernote: a powerful tool that can help executives, entrepreneurs and creative people capture and arrange their ideas. "All you have to do is use it." - Forbes
-You can find it [here](https://evernote.com/).
+StuDocu: an app where you can share and download study-related resources to help you save time and study efficiently. <br />
+You can find it [here](https://www.studocu.com/). <br />
+Evernote: a powerful tool that can help executives, entrepreneurs and creative people capture and arrange their ideas. "All you have to do is use it." - Forbes <br />
+You can find it [here](https://evernote.com/). <br />
