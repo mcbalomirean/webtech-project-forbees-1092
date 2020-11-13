@@ -10,3 +10,15 @@ StuDocu: an app where you can share and download study-related resources to help
 You can find it [here](https://www.studocu.com/). <br />
 Evernote: a powerful tool that can help executives, entrepreneurs and creative people capture and arrange their ideas. "All you have to do is use it." - Forbes <br />
 You can find it [here](https://evernote.com/). <br />
+## Interface
+## Components
+## API Calls
+- GET /notes
+- POST /notes
+- GET /groups
+- GET /groups/:id
+- POST /groups
+- GET /notes/:id
+- PUT /notes/:id
+- DELETE /notes/:id
+## User Actions
