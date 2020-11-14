@@ -20,6 +20,16 @@ You can find it [here](https://evernote.com/). <br />
 - Note Editor View <br />
 ![alt text](docs/img/mockup_4.jpg "Note Editor View")
 ## Components
+1. Login/Registration form
+2. Note form
+3. Personal Notes view
+4. Group Notes view
+5. Note Editor view
+6. Edit/Delete note button
+7. Share note button
+8. Save note button
+9. Add to notebook button
+10. Add new note button
 ## API Calls
 - GET /notes
 - POST /notes
