@@ -11,6 +11,14 @@ You can find it [here](https://www.studocu.com/). <br />
 Evernote: a powerful tool that can help executives, entrepreneurs and creative people capture and arrange their ideas. "All you have to do is use it." - Forbes <br />
 You can find it [here](https://evernote.com/). <br />
 ## Interface
+- Login Page <br />
+![alt text](https://github.com/mcbalomirean/webtech-project-forbees-1092/raw/master/docs/img/mockup_1.jpg/ "Login Page")
+- Personal Notes View <br />
+![alt text](https://github.com/mcbalomirean/webtech-project-forbees-1092/raw/master/docs/img/mockup_2.jpg/ "Personal Notes View")
+- Group Notes View <br />
+![alt text](https://github.com/mcbalomirean/webtech-project-forbees-1092/raw/master/docs/img/mockup_3.jpg/ "Group Notes View")
+- Note Editor View <br />
+![alt text](https://github.com/mcbalomirean/webtech-project-forbees-1092/raw/master/docs/img/mockup_4.jpg/ "Note Editor View")
 ## Components
 ## API Calls
 - GET /notes
