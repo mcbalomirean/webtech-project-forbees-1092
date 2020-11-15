@@ -40,3 +40,10 @@ You can find it [here](https://evernote.com/). <br />
 - PUT /notes/:id
 - DELETE /notes/:id
 ## User Actions
+- Login/Register
+- View Courses/Groups/Notes
+- Add note
+- Edit Note (Font, Font size, add image, color, attach file, etc…)
+- Share note
+- Delete note
+
