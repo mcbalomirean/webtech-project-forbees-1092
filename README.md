@@ -47,3 +47,8 @@ You can find it [here](https://evernote.com/). <br />
 - Share note
 - Delete note
 
+# Instructions
+
+- clone project with `git clone`
+- run `npm install` in both the `/api` and the `/notebee` directories
+- run `npm start` in both the `/api` and the `/notebee` directories
