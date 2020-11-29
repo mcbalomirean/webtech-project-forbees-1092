@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
-    var Students = sequelize.define("students", {
-        studentId: {
+    var students = sequelize.define("students", {
+        id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: true
@@ -9,8 +9,8 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
-        },
-        groupIds: DataTypes.INTEGER
+        }
+        // groupIds: DataTypes.INTEGER
     });
-    return Students
+    return students;
 }
