@@ -9,9 +9,15 @@ module.exports = function(sequelize, DataTypes) {
         },
         // studentId: DataTypes.INTEGER, <-- this will be handled outside
         title: DataTypes.STRING,
-        subject: DataTypes.STRING,
-        dateCreated: DataTypes.DATE,
-        dateModified: DataTypes.DATE,
+        // subject: DataTypes.STRING, <-- as will this
+        dateCreated: { 
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+        dateModified: { 
+            type: DataTypes.DATE,
+            allowNull: false
+        },
         tags: DataTypes.STRING,
         keywords: DataTypes.STRING
         // TODO: add attachments?
