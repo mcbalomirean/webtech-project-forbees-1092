@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes)
 {
-    var Subjects = sequelize.define("subjects",
+    var subjects = sequelize.define("subjects",
     {
         name: 
         {
@@ -11,5 +11,5 @@ module.exports = function(sequelize, DataTypes)
         year: DataTypes.INTEGER,
         semester: DataTypes.INTEGER
     });
-    return Subjects
+    return subjects
 }
