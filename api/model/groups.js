@@ -1,14 +1,13 @@
 module.exports = function(sequelize, DataTypes) {
-    var Groups = sequelize.define("groups", {
+    var groups = sequelize.define("groups", {
         //primary key
-        groupId: {
+        id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: true
         },
-
         name: DataTypes.STRING,
-        studentIds: DataTypes.INTEGER
+        //studentIds: DataTypes.INTEGER
         //?? supposed to connect M:M
     });
     return Groups
