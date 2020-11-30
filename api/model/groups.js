@@ -10,5 +10,5 @@ module.exports = function(sequelize, DataTypes) {
         //studentIds: DataTypes.INTEGER
         //?? supposed to connect M:M
     });
-    return Groups
+    return groups
 }
