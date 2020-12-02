@@ -35,8 +35,8 @@ sequelize
 			console.log('Unable to connect to the database: ', err);
 		});
 		
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+db.sequelize = sequelize; // we only need this sequelize instance
+// db.Sequelize = Sequelize;
 
 db.Students = require('./Students')(sequelize, Sequelize);
 db.Subjects = require('./Subjects')(sequelize, Sequelize);
