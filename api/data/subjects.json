@@ -1,0 +1,165 @@
+[{
+    "name": "English", 
+    "year": 1,
+	"semester": 1
+},
+{
+    "name": "Basics of computer programming", 
+    "year": 1,
+	"semester": 1
+},
+{
+    "name": "Economics", 
+    "year": 1,
+    "semester": 1
+},
+{
+    "name": "Basics of Statistics", 
+    "year": 1,
+	"semester": 1
+},
+{
+    "name": "Basics of Information Technology", 
+    "year": 1,
+	"semester": 1
+},
+{
+    "name": "Basics of Operational Research", 
+    "year": 1,
+	"semester": 1
+},
+{
+    "name": "Algebra", 
+    "year": 1,
+	"semester": 1
+},
+{
+    "name": "Marketing", 
+    "year": 1,
+	"semester": 2
+},
+{
+    "name": "Accounting", 
+    "year": 1,
+	"semester": 2
+},
+{
+    "name": "Basics of Economic Cybernetics", 
+    "year": 1,
+	"semester": 2
+},
+{
+    "name": "Operating Systems", 
+    "year": 1,
+	"semester": 2
+},
+{
+    "name": "Algorithms and Programming Techniques", 
+    "year": 1,
+	"semester": 2
+},
+{
+    "name": "Calculus", 
+    "year": 1,
+	"semester": 2
+},
+{
+    "name": "Management", 
+    "year": 2,
+	"semester": 1
+},
+{
+    "name": "Data Bases", 
+    "year": 2,
+	"semester": 1
+},
+{
+    "name": "Macroeconomic Statistics", 
+    "year": 2,
+	"semester": 1
+},
+{
+    "name": "Finances", 
+    "year": 2,
+	"semester": 1
+},
+{
+    "name": "Quantitative Microeconomics", 
+    "year": 2,
+	"semester": 1
+},
+{
+    "name": "Probabilities and Mathematic Statistics", 
+    "year": 2,
+	"semester": 1
+},
+{
+    "name": "Evolutive Programming and Genetic Algorithms", 
+    "year": 2,
+	"semester": 2
+},
+{
+    "name": "Risk Management", 
+    "year": 2,
+	"semester": 2
+},
+{
+    "name": "Multiparadigm Programming- Java", 
+    "year": 2,
+	"semester": 2
+},
+{
+    "name": "Quantitative Macroeconomics", 
+    "year": 2,
+	"semester": 2
+},
+{
+    "name": "SGBD Oracle", 
+    "year": 2,
+	"semester": 2
+},
+{
+    "name": "Windows Applications Programming", 
+    "year": 2,
+	"semester": 2
+},
+{
+    "name": "Data Structures", 
+    "year": 2,
+	"semester": 2
+},
+{
+    "name": "Econometrics", 
+    "year": 3,
+	"semester": 1
+},
+{
+    "name": "Computer Networks", 
+    "year": 3,
+	"semester": 1
+},
+{
+    "name": "Data Analysis", 
+    "year": 3,
+	"semester": 1
+},
+{
+    "name": "Multimedia", 
+    "year": 3,
+	"semester": 1
+},
+{
+    "name": "Web Technologies", 
+    "year": 3,
+	"semester": 1
+},
+{
+    "name": "Mobile Apps And Devices", 
+    "year": 3,
+	"semester": 1
+},
+{
+    "name": "The Cybernetics Of Economic Systems", 
+    "year": 3,
+	"semester": 1
+}]
