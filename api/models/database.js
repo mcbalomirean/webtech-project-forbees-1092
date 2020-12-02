@@ -1,14 +1,14 @@
 const Sequelize = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const db = {};
 const basename = path.basename(module.filename);
-const dbConfig = require('./routes/.env')
 
-const sequelize = new Sequelize(process.env.DB_Name, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
     dialect: 'mysql',
     host: process.env.DB_HOST
 })
+
+const db = {};
 
 fs
   .readdirSync(__dirname)
@@ -32,18 +32,25 @@ sequelize
 			console.log('Connection has been established successfully.');
 		})
 		.catch((err) => {
-			console.log('Unable to connect to the database:', err);
+			console.log('Unable to connect to the database: ', err);
 		});
 		
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.students = require('./students')(sequelize, Sequelize);
-db.subjects = require('./subjects')(sequelize, Sequelize);
-db.notes = require('./notes')(sequelize,Sequelize);
-db.groups = require('./groups')(sequelize, Sequelize);
+db.Students = require('./Students')(sequelize, Sequelize);
+db.Subjects = require('./Subjects')(sequelize, Sequelize);
+db.Notes = require('./Notes')(sequelize,Sequelize);
+db.Groups = require('./Groups')(sequelize, Sequelize);
+db.GroupMembers = require('./GroupMembers')(sequelize, Sequelize);
 
-db.students.belongsToMany(db.groups, {foreignKey: "studentId"}) //<--- a student belongs to many groups
-db.students.hasMany(db.notes, {foreignKey: "studentId"})    //<--- a student has many notes
-//db.subjects.hasMany(db.subjects,{foreignKey:"name"}) <--- a subject has many notes (see ./models/notes.js)
+db.Students.belongsToMany(db.Groups, { through: db.GroupMembers }); //<--- a student belongs to many groups
+db.Groups.belongsToMany(db.Students, { through: db.GroupMembers }); //<--- a group belongs to many students
+
+db.Students.hasMany(db.Notes); //<--- a student has many notes
+db.Notes.belongsTo(db.Students); //<--- a note belongs to a student
+
+db.Subjects.hasMany(db.Notes); //<--- a subject has many notes
+db.Notes.belongsTo(db.Subjects); //<--- a note belongs to a subject
+
 module.exports = db;
