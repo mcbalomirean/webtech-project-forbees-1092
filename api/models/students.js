@@ -2,7 +2,12 @@
 
 module.exports = function(sequelize, DataTypes) {
     var Students = sequelize.define("students", {
-        email: {
+        googleId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            unique: true
+        },
+        googleEmail: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
