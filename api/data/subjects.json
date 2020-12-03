@@ -162,4 +162,34 @@
     "name": "The Cybernetics Of Economic Systems", 
     "year": 3,
 	"semester": 1
+},
+{
+    "name": "Software Packages", 
+    "year": 3,
+	"semester": 2
+},
+{
+    "name": "Sociology", 
+    "year": 3,
+	"semester": 2
+},
+{
+    "name": "Informatic Systems", 
+    "year": 3,
+	"semester": 2
+},
+{
+    "name": "Software Quality And Testing", 
+    "year": 3,
+	"semester": 2
+},
+{
+    "name": "Informatic Economic Systems", 
+    "year": 3,
+    "semester": 2
+},
+{
+    "name": "Time Series", 
+    "year": 3,
+	"semester": 2
 }]
