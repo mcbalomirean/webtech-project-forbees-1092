@@ -1,8 +1,4 @@
 var db = require('../models/Database');
-//don't have it yet
-//??
-
-
 
 module.exports.findAll = (req, res) => {
     db.Groups.findAll({
@@ -34,6 +30,3 @@ module.exports.findOne = (req, res) => {
         }
     )
 }
-
-
-

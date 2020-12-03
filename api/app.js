@@ -3,13 +3,13 @@ var express = require('express');
 var path = require('path');
 var session = require('express-session');
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
-var db = require('./models/database');
+var db = require('./models/Database');
 var logger = require('morgan');
 var cors = require('cors');
 
+var authRoute = require('./routes/auth');
 var groupsRoute = require('./routes/groups');
 var testRoute = require('./routes/test');
-var authRoute = require('./routes/auth');
 
 var authController = require('./controllers/authController');
 
@@ -43,9 +43,9 @@ app.use(authController.initialize());
 app.use(authController.session());
 
 // routing goes here
+app.use('/auth', authRoute);
 app.use('/groups', groupsRoute);
 app.use('/test', testRoute);
-app.use('/auth', authRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
