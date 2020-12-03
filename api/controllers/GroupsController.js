@@ -1,4 +1,4 @@
-var db = require('../models/database');
+var db = require('../models/Database');
 //don't have it yet
 //??
 

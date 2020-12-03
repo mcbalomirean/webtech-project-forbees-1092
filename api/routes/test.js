@@ -1,9 +1,17 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../models/database');
+var db = require('../models/Database');
 
 router.get('/api', function(req, res, next) {
     res.status(200).send('Express API is functional.');
+});
+
+router.get('/auth', function(req, res, next) {
+    if (req.user) {
+        res.status(200).send(req.user);
+    } else {
+        res.status(401).send('Not authenticated.');
+    }
 });
 
 router.get('/database/creation', async function(req, res, next) {
