@@ -2,23 +2,19 @@ var express = require('express');
 var router = express.Router();
 var authController = require('../controllers/AuthController');
 
-router.get('/google',
-    authController.authenticate('google', { scope: ['profile', 'email'] })
+router.get('/login',
+  authController.passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
 //callback route
-//TODO: test redirect
+//TODO: test redirect, change it
 router.get('/callback',
-    authController.authenticate('google', { scope: ['profile', 'email'], failureRedirect: '/login' }),
-    function(req, res) {
-        //TODO: change
-        // res.send(req.user);
-        res.redirect('/test/auth');
-    }
+  authController.passport.authenticate('google', { scope: ['profile', 'email'], successRedirect: '/test/auth', failureRedirect: '/login' })
 );
 
 router.get('/logout', (req, res) => {
-    req.logout();
+  req.logout();
+  res.status(200).send('Logged out, all good.');
 });
 
 module.exports = router;

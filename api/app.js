@@ -24,7 +24,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // tell express to use sessions and our own store
 var dbStore = new SequelizeStore({
-  db: db.sequelize
+  db: db.sequelize,
+  modelKey: 'sessions'
 });
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -32,15 +33,15 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: { secure: false }
-}))
+}));
 // sync store table at start-up
 dbStore.sync();
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 // tell express to use passport callbacks
-app.use(authController.initialize());
-app.use(authController.session());
+app.use(authController.passport.initialize());
+app.use(authController.passport.session());
 
 // routing goes here
 app.use('/auth', authRoute);
@@ -48,12 +49,12 @@ app.use('/groups', groupsRoute);
 app.use('/test', testRoute);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
