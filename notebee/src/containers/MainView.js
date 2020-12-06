@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { AppBar, Toolbar, IconButton } from '@material-ui/core';
+import { Menu as MenuIcon } from '@material-ui/icons';
 
 class MainView extends Component {
   render() {
     return(
       <Switch>
         <Route exact path="/">
-      
+        TEST TEST TEST TEST TEST TEST
         </Route>
-        <Route path="/notes">
-      
+        <Route exact path="/notes">
         </Route>
-        <Route path="/groups">
-      
+        <Route exact path="/groups">
         </Route>
       </Switch>
     )
