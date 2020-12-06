@@ -1,9 +1,7 @@
 var express = require('express');
 var router = express.Router();
-
-const notesController = require('../controllers/NotesControllers')
 var db = require('../models/database');  
-
+const notesController = require('../controllers/NotesControllers');
 
 // create
 

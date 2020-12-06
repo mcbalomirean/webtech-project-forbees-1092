@@ -1,48 +1,31 @@
-const { report } = require('../app');
-var db = require('../models/database');
+var db = require('../models/Database');
 
- module.exports.findOne = (req, res) => {
-     db.Notes.findOne({
-         order: [
-            ['id']
-         ]
-     }).then(
-         (result) => {
-             if(result){
-                 res.status(200).send(result)
-             }
-             else{
-                 res.status(404).send()
-             }
-         }
-     )
- }
+module.exports.findOne = async (req, res) => {
+  try {
+    let result = await db.Notes.findByPk(req.params.id);
+    if (result) {
+      res.status(200).send(result);
+    } else {
+      res.status(404).send('Note not found.');
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Server error.');
+  }
+}
 
-
-
-
- module.exports.createNote = async(req, res) =>{
-     try{
-         let note = await db.Notes.create({
-            title: req.body.title, 
-            tags: "",
-            keywords: ""
-
-         })
-
-         res.status(201).send(note)
-
-     }
-     catch(ex){
-        console.log(ex)
-        res.status(500).send('server error')
-     }
- }
-
-
-
- //TO-DO
- //n
-
-
-
+module.exports.create = async (req, res) => {
+  try {
+    let result = await db.Notes.create({
+      title: req.body.title,
+      tags: req.body.tags,
+      keywords: req.body.keywords,
+      studentId: req.body.studentId,
+      subjectName: req.body.subjectName
+    });
+    res.status(201).send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Server error.');
+  }
+}

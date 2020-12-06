@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db = require('../models/Database');
 var authController = require('../controllers/AuthController');
+var notesController = require('../controllers/NotesControllers');
 
 router.get('/api', function(req, res) {
     res.status(200).send('Express API is functional.');
@@ -11,7 +12,7 @@ router.get('/auth', authController.checkAuth, function(req, res) {
     res.status(200).send(req.user);
 });
 
-router.get('/database/creation', async function(req, res) {
+router.get('/db/creation', async function(req, res) {
     try {
         await db.sequelize.sync({ force: true });
         res.status(201).send('Database tables created.');
@@ -20,5 +21,10 @@ router.get('/database/creation', async function(req, res) {
         console.log(error);
     }
 });
+
+// TODO: remove these
+router.get('/db/findnote/:id', notesController.findOne);
+
+router.post('/db/createnote', notesController.create);
 
 module.exports = router;
