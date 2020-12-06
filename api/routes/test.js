@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models/Database');
-var authController = require('../controllers/AuthController');
-var notesController = require('../controllers/NotesControllers');
+var AuthController = require('../controllers/AuthController');
+var NotesController = require('../controllers/NotesControllers');
 
 router.get('/api', function(req, res) {
     res.status(200).send('Express API is functional.');
 });
 
-router.get('/auth', authController.checkAuth, function(req, res) {
+router.get('/auth', AuthController.checkAuth, function(req, res) {
     res.status(200).send(req.user);
 });
 
@@ -23,8 +23,8 @@ router.get('/db/creation', async function(req, res) {
 });
 
 // TODO: remove these
-router.get('/db/findnote/:id', notesController.findOne);
+router.get('/db/findnote/:id', NotesController.findOne);
 
-router.post('/db/createnote', notesController.create);
+router.post('/db/createnote', NotesController.create);
 
 module.exports = router;
