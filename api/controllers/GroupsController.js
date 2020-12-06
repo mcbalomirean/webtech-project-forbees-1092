@@ -43,32 +43,6 @@ module.exports.findGroupMembers = async (req, res) => {
 }
 
 
-
-//TO DO
-//Student has ID and Name
-//Group member has studentId and groupId
-//Group has ID and name
-
-
-// module.exports.createGroup = async (req, res) => {
-//     try {
-//         let group_member = await db.Group_members.findByPk(req.params.id)
-//         let group = await db.Groups.create({
-//             //idk how it should be generated
-//             group_id: group_member.id,
-//             name: req.body.name
-
-//         })
-//         res.status(201).send(group)
-//     } catch(ex) {
-//         console.log(ex)
-//         res.status(500).send('Server error')
-//     }
-// }
-
-
-
-
 module.exports.create = async (req, res) => {
     try {
 
