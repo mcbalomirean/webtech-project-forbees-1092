@@ -39,51 +39,47 @@ function ResponsiveDrawer(props) {
   };
 
   const drawer = (
-    <div>
+    <List>
+      <ListItem button>
+        <ListItemIcon>
+          <AccountCircleIcon />
+        </ListItemIcon>
+        <ListItemText primary="Profile" />
+      </ListItem>
+      
+      <ListItem button>
+        <ListItemIcon>
+          <SupervisedUserCircleIcon/>
+        </ListItemIcon>
+        <ListItemText primary="Groups"/>
+      </ListItem>
       <Divider />
-      <List>
-          <ListItem button>
-            <ListItemIcon>
-              <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Profile" />
-          </ListItem>
-          
-          <ListItem button>
-            <ListItemIcon>
-              <SupervisedUserCircleIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Groups"/>
-          </ListItem>
-        <Divider />
-          <ListItem button>
-            <ListItemIcon>
-              <SubjectIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Notes"/>
-          </ListItem>
-
-          <ListItem button>
-            <ListItemIcon>
-         <LibraryBooksIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Notebook"/>
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemIcon>
-              <NoteAddIcon/>
-            </ListItemIcon>
-            <ListItemText primary="New Note"/>
-          </ListItem>
-        </List>
-    </div>
+      <ListItem button>
+        <ListItemIcon>
+          <SubjectIcon/>
+        </ListItemIcon>
+        <ListItemText primary="Notes"/>
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+      <LibraryBooksIcon/>
+        </ListItemIcon>
+        <ListItemText primary="Notebook"/>
+      </ListItem>
+      <Divider />
+      <ListItem button>
+        <ListItemIcon>
+          <NoteAddIcon/>
+        </ListItemIcon>
+        <ListItemText primary="New Note"/>
+      </ListItem>
+    </List>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
   
   return (
-    <div className={classes.root}>
+    <div>
       <CssBaseline />  
       <nav className={classes.drawer} aria-label="notebee sidebar">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
