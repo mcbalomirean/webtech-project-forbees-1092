@@ -23,8 +23,16 @@ router.get('/db/creation', async function(req, res) {
 });
 
 // TODO: remove these
-router.get('/db/findnote/:id', notesController.findOne);
+// router.get('/db/findnote/:id', notesController.findOne);
+
+router.get('/db/findOne/:id', notesController.findOne);
 
 router.post('/db/createnote', notesController.create);
+
+router.delete('/db/delete/:id', notesController.delete);
+
+// router.put('/db/put/:id', notesController.create);
+
+router.get('/db/findAll', notesController.findAll);
 
 module.exports = router;
