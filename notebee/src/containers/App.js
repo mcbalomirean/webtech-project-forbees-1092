@@ -1,8 +1,12 @@
-import React, { Fragment, useState } from 'react'; // TODO: add state?
+import React, { Fragment, useState, useCallback } from 'react'; // TODO: add state?
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { Menu as MenuIcon, AccountCircle as AccountCircleIcon } from '@material-ui/icons';
-import SideBar from '../components/SideBar';
+import { AppBar, Toolbar, IconButton, Drawer, Hidden, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { 
+  Menu as MenuIcon, 
+  AccountCircle as AccountCircleIcon,
+  LibraryBooks as LibraryBooksIcon,
+  SupervisedUserCircle as SupervisedUserCircleIcon,
+  Subject as SubjectIcon } from '@material-ui/icons';
 import MainView from './MainView';
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -27,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
+  toolbar: theme.mixins.toolbar,
   content: {
     flexGrow: 1
   },
@@ -37,18 +42,41 @@ export default function App(props) {
   const classes = useStyles();
 
   const [mobileOpen, setMobileOpen] = useState(false);
-  const handleDrawerToggle = () => {
+  const handleDrawerToggle = useCallback(() => {
     setMobileOpen(!mobileOpen);
-  };
+  }, [mobileOpen]);
 
   const drawerContents = (
     <Fragment>
+      <div className={classes.toolbar} /> {/* This adds an offset of the size of the toolbar for aesthetic reasons, before the drawer contents. */}
+      <Divider />
       <List>
         <ListItem button>
           <ListItemIcon>
             <AccountCircleIcon />
           </ListItemIcon>
           <ListItemText primary="Profile" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <SupervisedUserCircleIcon />
+          </ListItemIcon>
+          <ListItemText primary="Groups"/>
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        <ListItem button>
+          <ListItemIcon>
+            <SubjectIcon />
+          </ListItemIcon>
+          <ListItemText primary="Notes"/>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <LibraryBooksIcon />
+          </ListItemIcon>
+          <ListItemText primary="Notebook"/>
         </ListItem>
       </List>
     </Fragment>
