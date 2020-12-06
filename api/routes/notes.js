@@ -56,6 +56,11 @@ router.get('/notes/:id', notesController.findOne)  //check authentification...
 
 // create note
 router.post('/notes', notesController.createNote)
+router.post('/notes', notesController.create)
+
+
+//...
+router.delete('/notes/:id', notesController.delete)
 
 // 
 // router.get()
