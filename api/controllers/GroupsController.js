@@ -50,18 +50,36 @@ module.exports.findGroupMembers = async (req, res) => {
 //Group has ID and name
 
 
-module.exports.createGroup = async (req, res) => {
+// module.exports.createGroup = async (req, res) => {
+//     try {
+//         let group_member = await db.Group_members.findByPk(req.params.id)
+//         let group = await db.Groups.create({
+//             //idk how it should be generated
+//             group_id: group_member.id,
+//             name: req.body.name
+
+//         })
+//         res.status(201).send(group)
+//     } catch(ex) {
+//         console.log(ex)
+//         res.status(500).send('Server error')
+//     }
+// }
+
+
+
+
+module.exports.create = async (req, res) => {
     try {
-        let group_member = await db.Group_members.findByPk(req.params.id)
+
         let group = await db.Groups.create({
-            //idk how it should be generated
-            group_id: group_member.id,
+
             name: req.body.name
 
         })
         res.status(201).send(group)
-    } catch(ex) {
-        console.log(ex)
+    } catch(error) {
+        console.log(error)
         res.status(500).send('Server error')
     }
 }

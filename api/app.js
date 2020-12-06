@@ -11,7 +11,7 @@ var authRoute = require('./routes/auth');
 var groupsRoute = require('./routes/groups');
 var testRoute = require('./routes/test');
 
-var authController = require('./controllers/authController');
+var AuthController = require('./controllers/authController');
 
 var app = express();
 
@@ -40,8 +40,8 @@ dbStore.sync();
 app.use(express.static(path.join(__dirname, 'public')));
 
 // tell express to use passport callbacks
-app.use(authController.passport.initialize());
-app.use(authController.passport.session());
+app.use(AuthController.passport.initialize());
+app.use(AuthController.passport.session());
 
 // routing goes here
 app.use('/auth', authRoute);

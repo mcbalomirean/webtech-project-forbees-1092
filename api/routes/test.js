@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models/Database');
-var authController = require('../controllers/AuthController');
-var notesController = require('../controllers/NotesControllers');
+var AuthController = require('../controllers/AuthController');
+var NotesController = require('../controllers/NotesControllers');
 
 router.get('/api', function(req, res) {
     res.status(200).send('Express API is functional.');
 });
 
-router.get('/auth', authController.checkAuth, function(req, res) {
+router.get('/auth', AuthController.checkAuth, function(req, res) {
     res.status(200).send(req.user);
 });
 
@@ -23,11 +23,15 @@ router.get('/db/creation', async function(req, res) {
 });
 
 // TODO: remove these
+<<<<<<< HEAD
 // router.get('/db/findnote/:id', notesController.findOne);
 
 router.get('/db/findOne/:id', notesController.findOne);
+=======
+router.get('/db/findnote/:id', NotesController.findOne);
+>>>>>>> fb593ba01e9e7afb210f8da16d54e70041a4fb25
 
-router.post('/db/createnote', notesController.create);
+router.post('/db/createnote', NotesController.create);
 
 router.delete('/db/delete/:id', notesController.delete);
 
