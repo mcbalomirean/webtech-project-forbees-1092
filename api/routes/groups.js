@@ -8,7 +8,7 @@ router.get('/:id', GroupsController.findOne)
 
 router.post('/', GroupsController.create)
 router.post('/members/:id', GroupsController.findGroupMembers)
-router.post('/:id/:studentId', GroupsController.addMember)
+router.post('/add/', GroupsController.add)
 router.delete('/:id', GroupsController.delete)
 
 

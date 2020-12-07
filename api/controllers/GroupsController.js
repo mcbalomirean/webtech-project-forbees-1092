@@ -76,15 +76,16 @@ module.exports.findGroupMembers = async (req, res) => {
 }
 
 //TO DO
-module.exports.addMember = async(req, res) => {
+module.exports.add = async(req, res) => {
 
     try{
 
-        let student = await db.Students.findByPk(req.params.studentId)
-        let group = await db.Groups.A
-        //let group = await db.Groups.findByPk(req.params.id)
-       // group.addStudent(student)
-        res.status(201).send(group)
+        let student = await db.Students.findByPk(req.body.studentId)
+        let group = await db.Groups.findByPk(req.body.groupId)
+        await group.addStudent(student)
+        await student.addGroup(group)
+
+        res.status(201).send(student)
 
     } catch(error) {
         console.log(error)
