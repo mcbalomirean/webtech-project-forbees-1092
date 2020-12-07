@@ -22,6 +22,19 @@ router.get('/db/creation', async function(req, res) {
     }
 });
 
+router.get('/db/create_student', async function(req, res) {
+    try {
+        await db.Students.create({
+            id: req.body.id,
+            email: req.body.email
+        });
+        res.sendStatus(201);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Student not added.');
+    }
+});
+
 // TODO: remove these
 router.get('/db/findnote/:id', NotesController.findOne);
 
