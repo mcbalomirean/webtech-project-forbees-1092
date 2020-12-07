@@ -1,118 +1,102 @@
-import React from 'react';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
-import SubjectIcon from '@material-ui/icons/Subject';
-import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom'; // TODO: routing links
+import { Hidden, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { 
+  AccountCircle as AccountCircleIcon,
+  LibraryBooks as LibraryBooksIcon,
+  SupervisedUserCircle as SupervisedUserCircleIcon,
+  Subject as SubjectIcon } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core/styles'
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
       flexShrink: 0,
     },
   },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  toolbar: theme.mixins.toolbar,
 }));
 
-function ResponsiveDrawer(props) {
+export default function SideBar(props) {
   const { window } = props;
   const classes = useStyles();
-  const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const drawer = (
-    <List>
-      <ListItem button>
-        <ListItemIcon>
-          <AccountCircleIcon />
-        </ListItemIcon>
-        <ListItemText primary="Profile" />
-      </ListItem>
-      
-      <ListItem button>
-        <ListItemIcon>
-          <SupervisedUserCircleIcon/>
-        </ListItemIcon>
-        <ListItemText primary="Groups"/>
-      </ListItem>
+  const drawerContents = (
+    <Fragment>
+      <div className={classes.toolbar} /> {/* This adds an offset of the size of the toolbar for aesthetic reasons, before the drawer contents. */}
       <Divider />
-      <ListItem button>
-        <ListItemIcon>
-          <SubjectIcon/>
-        </ListItemIcon>
-        <ListItemText primary="Notes"/>
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-      <LibraryBooksIcon/>
-        </ListItemIcon>
-        <ListItemText primary="Notebook"/>
-      </ListItem>
+      <List>
+        <ListItem button>
+          <ListItemIcon>
+            <AccountCircleIcon />
+          </ListItemIcon>
+          <ListItemText primary="Profile" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <SupervisedUserCircleIcon />
+          </ListItemIcon>
+          <ListItemText primary="Groups"/>
+        </ListItem>
+      </List>
       <Divider />
-      <ListItem button>
-        <ListItemIcon>
-          <NoteAddIcon/>
-        </ListItemIcon>
-        <ListItemText primary="New Note"/>
-      </ListItem>
-    </List>
+      <List>
+        <ListItem button>
+          <ListItemIcon>
+            <SubjectIcon />
+          </ListItemIcon>
+          <ListItemText primary="Notes"/>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <LibraryBooksIcon />
+          </ListItemIcon>
+          <ListItemText primary="Notebook"/>
+        </ListItem>
+      </List>
+      <Divider />
+    </Fragment>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
-  
+
   return (
-    <div>
-      <CssBaseline />  
-      <nav className={classes.drawer} aria-label="notebee sidebar">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden smUp implementation="css">
-          <Drawer
-            container={container}
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden xsDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant="permanent"
-            open
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-      </nav>
-    </div>
+    <nav className={classes.drawer}>
+      <Hidden smUp implementation="css">
+        <Drawer
+          container={container}
+          variant='temporary'
+          anchor='left'
+          open={props.mobileOpen}
+          onClose={props.handleDrawerToggle}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile according to Material-UI developers.
+          }}
+        >
+          {drawerContents}
+        </Drawer>
+      </Hidden>
+      <Hidden xsDown implementation="css">
+        <Drawer
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          variant='permanent'
+          anchor='left'
+          open
+        >
+          {drawerContents}
+        </Drawer>
+      </Hidden>
+    </nav>
   );
-}
-export default ResponsiveDrawer;
+};
