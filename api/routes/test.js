@@ -22,7 +22,7 @@ router.get('/db/creation', async function(req, res) {
     }
 });
 
-router.get('/db/create_student', async function(req, res) {
+router.post('/db/create_student', async function(req, res) {
     try {
         await db.Students.create({
             id: req.body.id,
