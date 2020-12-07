@@ -64,15 +64,25 @@ module.exports.delete = async (req, res) => {
 
 
 module.exports.findGroupMembers = async (req, res) => {
-    let group = await db.Groups.findByPk(req.params.id)
-    if(group) {
-        //the getter??
-        //can't test yet
-        let group_members = await group.getGroupMembers();
-        res.status(200).send(group_members)
-        // or .json??
-    }
-    res.status(404).send()
+    db.Groups.findOne({
+        include: [{
+          model: db.Students
+        }],
+        where:{
+            id:req.params.id
+        }
+      }).then(
+           (results) => {
+               res.status(200).send({
+                   status: "success",
+                   results: results
+               });
+           }
+       ).catch(() => {
+           res.status(500).send({
+               status: "error"
+           })
+       })
 }
 
 //TO DO
