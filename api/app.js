@@ -10,6 +10,7 @@ var cors = require('cors');
 var authRoute = require('./routes/auth');
 var groupsRoute = require('./routes/groups');
 var testRoute = require('./routes/test');
+var notesRoute = require('./routes/notes');
 
 var AuthController = require('./controllers/authController');
 
@@ -47,6 +48,7 @@ app.use(AuthController.passport.session());
 app.use('/auth', authRoute);
 app.use('/groups', groupsRoute);
 app.use('/test', testRoute);
+app.use('/notes', notesRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

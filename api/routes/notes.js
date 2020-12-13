@@ -1,75 +1,14 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../models/database');  
-const notesController = require('../controllers/NotesControllers');
+const NotesController = require('../controllers/NotesControllers');
 
-// create
+router.post('/', NotesController.create);
 
-// TO-DO: async await
-router.get('/notes', async (req, res) => {
-    // parametru let db... = await db.notes.findall in try catch, works:res stat 200
-    db.Notes.findAll().then(
-        (results) => {
-            res.status(200).send({
-                status: "success",
-                results: results
-            });
+router.get('/', NotesController.findAll);
+router.get('/:id', NotesController.findOne);
 
-        }
-    ).catch(() => {
-        res.status(500).send({
-            status: "error"
-        })
-    })
-});
+router.delete('/:id', NotesController.delete);
 
-// pot sa iau note/:id, cu id-ul userului
-
-
-// async await la majoritatea
-router.get('/notes/:title', async(req, res) => {
-    // findone...(where...)
-    db.Notes.findByPk(req.params.title, {
-        include: [{
-            model: db.Notes
-        }]
-
-    }).then(
-        (result) => {
-            if(result){
-                res.status(200).send(result)
-            }
-            else{
-                res.status(404).send()
-            }
-        }
-    )
-});
-
-
-
-
-// router.get('/notes', notesController.findAll)
-router.get('/notes/:id', notesController.findOne)  //check authentification...
-// router.get('/notes/:id/notes', notesController.findNotes)
-
-
-// create note
-router.post('/notes', notesController.createNote)
-router.post('/notes', notesController.create)
-
-
-//...
-router.delete('/notes/:id', notesController.delete)
-
-// 
-// router.get()
-
-router.post('/notes/:id/')
-
-
-
-
-
+router.put('/:id', NotesController.put);
 
 module.exports = router;
