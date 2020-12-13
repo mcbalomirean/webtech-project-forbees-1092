@@ -29,7 +29,7 @@ router.post('/db/createnote', NotesController.create);
 
 router.delete('/db/delete/:id', NotesController.delete);
 
-// router.put('/db/put/:id', notesController.create);
+router.put('/db/put/:id', NotesController.put);
 
 router.get('/db/findAll', NotesController.findAll);
 

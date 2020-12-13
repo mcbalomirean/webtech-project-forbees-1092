@@ -64,36 +64,21 @@ module.exports.delete = async (req, res) => {
 }
 
 // PUT /notes/:id
-// module.exports.put = async (req, res) => {
-//     try{
-//         const newTitle = req.body.title;
-//         const newTags = req.body.tags;
-//         const newKeywords = req.body.keywords;
-//         const idd = req.body.keywords;
-            
-//         const result = await db.Notes.update({
-//             title: newTitle,
-//             tags: newTags,
-//             keywords: newKeywords
-//             },
-//             { where: {id:idd} }
-//             )
-//             handleResult(result)
-//             } catch(err){
-//             handleError(err)
-//             res.status(500).send('Server error.');
-//         }
-    
-        
-//         await db.Notes.save();
-
-
-//         if(result){
-//             res.status(200).send("Updated successfully"); // 200 OK
-//         }
-//         else{
-//             res.status(204).send("Could not update"); // 204 No Content
-//         }
-     
-        
-//     }
+module.exports.put = async (req, res) => {
+    db.Notes.findByPk(req.params.id).then((message) =>{
+      if(message) {
+        message.update(req.body).then((result) => {
+          res.status(201).json(result)
+        }).catch((err) => {
+          console.log(err)
+          res.status(500).send('db error')
+        })
+      } else{
+        res.status(404).send('res not found')
+      }
+    }).catch((err) => {
+      console.log(err)
+      res.status(500).send('db error')
+    })
+      
+}
