@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom'; // TODO: routing links
 import { Hidden, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { 
   AccountCircle as AccountCircleIcon,
+  ExitToApp as ExitToAppIcon,
+  GroupAdd as GroupAddIcon,
   LibraryBooks as LibraryBooksIcon,
+  NoteAdd as NoteAddIcon,
   SupervisedUserCircle as SupervisedUserCircleIcon,
   Subject as SubjectIcon } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles'
@@ -30,6 +33,30 @@ export default function SideBar(props) {
   const drawerContents = (
     <Fragment>
       <div className={classes.toolbar} /> {/* This adds an offset of the size of the toolbar for aesthetic reasons, before the drawer contents. */}
+      <Divider />
+      <List>
+        <ListItem button>
+          <ListItemIcon>
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <ListItemText primary="Login" />
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        <ListItem button>
+          <ListItemIcon>
+            <NoteAddIcon />
+          </ListItemIcon>
+          <ListItemText primary="Create Note" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <GroupAddIcon />
+          </ListItemIcon>
+          <ListItemText primary="Create Group"/>
+        </ListItem>
+      </List>
       <Divider />
       <List>
         <ListItem button>
