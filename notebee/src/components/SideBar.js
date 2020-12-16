@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'; // TODO: routing links
 import { Hidden, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { 
   AccountCircle as AccountCircleIcon,
-  ExitToApp as ExitToAppIcon,
   GroupAdd as GroupAddIcon,
   LibraryBooks as LibraryBooksIcon,
   NoteAdd as NoteAddIcon,
