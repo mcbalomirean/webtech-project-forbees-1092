@@ -9,7 +9,8 @@ import {
   NoteAdd as NoteAddIcon,
   SupervisedUserCircle as SupervisedUserCircleIcon,
   Subject as SubjectIcon } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
+import GoogleIcon from './GoogleIcon';
 
 const drawerWidth = 200;
 
@@ -37,7 +38,7 @@ export default function SideBar(props) {
       <List>
         <ListItem button>
           <ListItemIcon>
-            <ExitToAppIcon />
+            <GoogleIcon />
           </ListItemIcon>
           <ListItemText primary="Login" />
         </ListItem>
