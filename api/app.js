@@ -9,8 +9,8 @@ var cors = require('cors');
 
 var authRoute = require('./routes/auth');
 var groupsRoute = require('./routes/groups');
-var testRoute = require('./routes/test');
 var notesRoute = require('./routes/notes');
+var testRoute = require('./routes/test');
 
 var AuthController = require('./controllers/authController');
 
@@ -18,7 +18,8 @@ var app = express();
 
 // allow cross-origin requests, should only be enabled in development
 app.use(cors({
-  credentials: true
+  origin: true,
+  credentials: true //TODO: check how we can use this
 }));
 app.use(logger('dev'));
 app.use(express.json());
