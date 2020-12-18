@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from "react"; // TODO: add state?
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import MainAppBar from "../components/MainAppBar";
 import MainView from "./MainView";
 import Sidebar from "../components/SideBar";
+import Groups from "./Groups";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +40,7 @@ export default function App() {
         <main className={classes.content}>
           <MainAppBar handleDrawerToggle={handleDrawerToggle} />
           <MainView />
+          <Route path="/groups/" component={Groups} />
         </main>
       </div>
     </Router>
