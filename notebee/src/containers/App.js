@@ -5,6 +5,7 @@ import MainAppBar from "../components/MainAppBar";
 import MainView from "./MainView";
 import Sidebar from "../components/SideBar";
 import Groups from "./Groups";
+import Notes from "../components/CardNote";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +42,7 @@ export default function App() {
           <MainAppBar handleDrawerToggle={handleDrawerToggle} />
           <MainView />
           <Route path="/groups/" component={Groups} />
+          <Route path="/notes/" component={Notes} />
         </main>
       </div>
     </Router>
