@@ -42,6 +42,8 @@ function useProvideAuth() {
       }
     };
 
+    checkAuth();
+
     return () => checkAuth();
   }, []);
 
