@@ -1,19 +1,19 @@
-import React, { useState, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import CardNote from "../components/CardNote";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASEURL;
+const API = process.env.REACT_APP_API_BASEURL;
 
 export default function Notes(){
 
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-    axios.get(API_BASE_URL + "/notes").then((result) => {
+    axios.get(API + "/notes").then((result) => {
         setNotes(result.data); //TODO here is the problem
     });
-  });
+  }, []);
 
     return(
         <div>

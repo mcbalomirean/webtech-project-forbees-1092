@@ -4,8 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import MainAppBar from "../components/MainAppBar";
 import MainView from "./MainView";
 import Sidebar from "../components/SideBar";
-import Groups from "./Groups";
-import Notes from "../components/CardNote";
+import { ProvideAuth } from "../hooks/useAuth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,19 +31,19 @@ export default function App() {
   }, [mobileOpen]);
 
   return (
-    <Router>
-      <div className={classes.root}>
-        <Sidebar
-          mobileOpen={mobileOpen}
-          handleDrawerToggle={handleDrawerToggle}
-        />
-        <main className={classes.content}>
-          <MainAppBar handleDrawerToggle={handleDrawerToggle} />
-          <MainView />
-          <Route path="/groups/" component={Groups} />
-          <Route path="/notes/" component={Notes} />
-        </main>
-      </div>
-    </Router>
+    <ProvideAuth>
+      <Router>
+        <div className={classes.root}>
+          <Sidebar
+            mobileOpen={mobileOpen}
+            handleDrawerToggle={handleDrawerToggle}
+          />
+          <main className={classes.content}>
+            <MainAppBar handleDrawerToggle={handleDrawerToggle} />
+            <MainView />
+          </main>
+        </div>
+      </Router>
+    </ProvideAuth>
   );
 }
