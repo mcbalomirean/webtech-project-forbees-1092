@@ -7,7 +7,7 @@ import Notes from './Notes';
 
 class MainView extends Component {
   render() {
-    return(
+    return (
       <Switch>
         <Route exact path="/">
           TEST TEST TEST TEST TEST TEST

@@ -3,11 +3,11 @@ var router = express.Router();
 var authController = require('../controllers/AuthController');
 
 router.get('/login', (req, res, next) => {
-    // We get the referrer and store it in the user session so we know where
-    // to send them back to after authenticating.
-    req.session.backUrl = req.get('Referrer');
-    next();
-  },
+  // We get the referrer and store it in the user session so we know where
+  // to send them back to after authenticating.
+  req.session.backUrl = req.get('Referrer');
+  next();
+},
   authController.passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 

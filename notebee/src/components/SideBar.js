@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
-import { Link as RouteLink} from 'react-router-dom'; // TODO: routing links
+import { Link as RouteLink } from 'react-router-dom'; // TODO: routing links
 import { Hidden, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Link } from '@material-ui/core';
-import { 
+import {
   AccountCircle as AccountCircleIcon,
   GroupAdd as GroupAddIcon,
   LibraryBooks as LibraryBooksIcon,
   NoteAdd as NoteAddIcon,
   SupervisedUserCircle as SupervisedUserCircleIcon,
-  Subject as SubjectIcon } from '@material-ui/icons';
+  Subject as SubjectIcon
+} from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import GoogleIcon from './GoogleIcon';
 import { useAuth } from '../hooks/useAuth';
@@ -39,7 +40,7 @@ export default function SideBar(props) {
       <div className={classes.toolbar} /> {/* This adds an offset of the size of the toolbar for aesthetic reasons, before the drawer contents. */}
       <Divider />
       <List>
-        {auth.user?
+        {auth.user ?
           <ListItem button onClick={auth.logout}>
             <ListItemIcon>
               <GoogleIcon />
@@ -66,7 +67,7 @@ export default function SideBar(props) {
           <ListItemIcon>
             <GroupAddIcon />
           </ListItemIcon>
-          <ListItemText primary="Create Group"/>
+          <ListItemText primary="Create Group" />
         </ListItem>
       </List>
       <Divider />
@@ -81,7 +82,7 @@ export default function SideBar(props) {
           <ListItemIcon>
             <SupervisedUserCircleIcon />
           </ListItemIcon>
-          <ListItemText primary="Groups"/>
+          <ListItemText primary="Groups" />
         </ListItem>
       </List>
       <Divider />
@@ -90,13 +91,13 @@ export default function SideBar(props) {
           <ListItemIcon>
             <SubjectIcon />
           </ListItemIcon>
-          <ListItemText primary="Notes"/>
+          <ListItemText primary="Notes" />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
             <LibraryBooksIcon />
           </ListItemIcon>
-          <ListItemText primary="Notebook"/>
+          <ListItemText primary="Notebook" />
         </ListItem>
       </List>
       <Divider />
