@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext, createContext } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useContext, createContext } from "react";
+import axios from "axios";
 
 const API = process.env.REACT_APP_API_BASEURL;
 const authContext = createContext();
 
 const config = {
   baseURL: `${API}`,
-  withCredentials: true
+  withCredentials: true,
 };
 
 // This hook provides the state to the child components.
@@ -50,7 +50,7 @@ function useProvideAuth() {
   // Return the user state and auth methods
   return {
     user,
-    logout
+    logout,
   };
 }
 

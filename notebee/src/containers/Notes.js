@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import CardNote from "../components/CardNote";
 
 const API = process.env.REACT_APP_API_BASEURL;
 
 export default function Notes() {
-
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
@@ -21,7 +20,6 @@ export default function Notes() {
       {notes.map((note) => (
         <CardNote note={note} id={note.id} />
       ))}
-
     </div>
   ); //;...
 }
