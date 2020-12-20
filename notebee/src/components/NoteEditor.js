@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NoteEditor(props) {
   const classes = useStyles();
-  // TODO: consolidate state
   const [subjects, setSubjects] = useState([]);
   useEffect(() => {
     // There is a reason we are using an arrow function encapsulated into a variable:
@@ -42,28 +41,49 @@ export default function NoteEditor(props) {
 
     loadSubjects();
   }, []);
+  // TODO: consolidate state?
+  const [form, setForm] = useState({
+    title: "",
+    subject: "",
+    contents: "",
+    keywords: "",
+    tags: "",
+  });
+
+  const handleInputChange = (event) => {
+    setForm((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
+  };
 
   return (
     <Container component="main" maxWidth="xs">
-      <Paper component="form" className={classes.form}>
+      <Paper component="form" className={classes.form} autoComplete="off">
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
               id="titleField"
+              name="title"
               label="Title"
               aria-label="Note Title"
               required
               fullWidth
+              value={form.title}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               id="subjectField"
+              name="subject"
               label="Subject"
               aria-label="Note Subject"
               select
               required
               fullWidth
+              value={form.subject}
+              onChange={handleInputChange}
             >
               {subjects.map((subject) => (
                 <MenuItem key={subject} value={subject}>
@@ -75,32 +95,41 @@ export default function NoteEditor(props) {
           <Grid item xs={12}>
             <TextField
               id="contentsField"
+              name="contents"
               label="Contents"
               aria-label="Note Contents"
               multiline
               variant="outlined"
               rows={rows}
               fullWidth
+              value={form.contents}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               id="keywordsField"
+              name="keywords"
               label="Keywords"
               aria-label="Note Keywords"
               fullWidth
+              value={form.keywords}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               id="tagsField"
+              name="tags"
               label="Tags"
               aria-label="Note Tags"
               fullWidth
+              value={form.tags}
+              onChange={handleInputChange}
             />
           </Grid>
           <Grid item xs={6}>
-            <Button type="submit" variant="contained" fullWidth>
+            <Button variant="contained" fullWidth>
               Save
             </Button>
           </Grid>
