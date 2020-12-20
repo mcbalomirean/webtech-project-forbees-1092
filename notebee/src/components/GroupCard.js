@@ -33,6 +33,10 @@ export default function GroupCard(props) {
           Group: {props.group.name}
           <br />
         </Typography>
+
+        {props.group.students.map((student) => (
+          <Typography>{props.group.students.email}</Typography>
+        ))}
       </CardContent>
       <CardActions>
         <Button size="small">See group members</Button>

@@ -11,7 +11,6 @@ module.exports.findAll = (req, res) => {
   })
     .then((results) => {
       res.status(200).send({
-        status: "success",
         results: results,
       });
     })
@@ -71,7 +70,6 @@ module.exports.findGroupMembers = async (req, res) => {
   })
     .then((results) => {
       res.status(200).send({
-        status: "success",
         results: results,
       });
     })
