@@ -1,14 +1,14 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const NotesController = require('../controllers/NotesControllers');
+const NotesController = require("../controllers/NotesController");
 
-router.post('/', NotesController.create);
+router.post("/", NotesController.create);
 
-router.get('/', NotesController.findAll);
-router.get('/:id', NotesController.findOne);
+router.get("/", NotesController.findAll);
+router.get("/:id", NotesController.findOne);
 
-router.delete('/:id', NotesController.delete);
+router.delete("/:id", NotesController.delete);
 
-router.put('/:id', NotesController.put);
+router.put("/:id", NotesController.put);
 
 module.exports = router;
