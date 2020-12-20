@@ -1,21 +1,34 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom'; // TODO: routing links
-import { Hidden, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { 
+import React, { Fragment } from "react";
+import { Link as RouteLink } from "react-router-dom"; // TODO: routing links
+import {
+  Hidden,
+  Drawer,
+  Divider,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Link,
+} from "@material-ui/core";
+import {
   AccountCircle as AccountCircleIcon,
   GroupAdd as GroupAddIcon,
   LibraryBooks as LibraryBooksIcon,
   NoteAdd as NoteAddIcon,
   SupervisedUserCircle as SupervisedUserCircleIcon,
-  Subject as SubjectIcon } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
-import GoogleIcon from './GoogleIcon';
+  Subject as SubjectIcon,
+} from "@material-ui/icons";
+import { makeStyles } from "@material-ui/core/styles";
+import GoogleIcon from "./GoogleIcon";
+import { useAuth } from "../hooks/useAuth";
+
+const API = process.env.REACT_APP_API_BASEURL;
 
 const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up("sm")]: {
       width: drawerWidth,
       flexShrink: 0,
     },
@@ -29,18 +42,30 @@ const useStyles = makeStyles((theme) => ({
 export default function SideBar(props) {
   const { window } = props;
   const classes = useStyles();
+  const auth = useAuth();
 
   const drawerContents = (
     <Fragment>
-      <div className={classes.toolbar} /> {/* This adds an offset of the size of the toolbar for aesthetic reasons, before the drawer contents. */}
+      <div className={classes.toolbar} />{" "}
+      {/* TODO: investigate this leftover thing ^ */}
+      {/* This adds an offset of the size of the toolbar for aesthetic reasons, before the drawer contents. */}
       <Divider />
       <List>
-        <ListItem button>
-          <ListItemIcon>
-            <GoogleIcon />
-          </ListItemIcon>
-          <ListItemText primary="Login" />
-        </ListItem>
+        {auth.user ? (
+          <ListItem button onClick={auth.logout}>
+            <ListItemIcon>
+              <GoogleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Logout" />
+          </ListItem>
+        ) : (
+          <ListItem button component={Link} href={`${API}/auth/login`}>
+            <ListItemIcon>
+              <GoogleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Login" />
+          </ListItem>
+        )}
       </List>
       <Divider />
       <List>
@@ -54,7 +79,7 @@ export default function SideBar(props) {
           <ListItemIcon>
             <GroupAddIcon />
           </ListItemIcon>
-          <ListItemText primary="Create Group"/>
+          <ListItemText primary="Create Group" />
         </ListItem>
       </List>
       <Divider />
@@ -65,41 +90,42 @@ export default function SideBar(props) {
           </ListItemIcon>
           <ListItemText primary="Profile" />
         </ListItem>
-        <ListItem button>
+        <ListItem button component={RouteLink} to="/groups">
           <ListItemIcon>
             <SupervisedUserCircleIcon />
           </ListItemIcon>
-          <ListItemText primary="Groups"/>
+          <ListItemText primary="Groups" />
         </ListItem>
       </List>
       <Divider />
       <List>
-        <ListItem button>
+        <ListItem button component={RouteLink} to="/notes">
           <ListItemIcon>
             <SubjectIcon />
           </ListItemIcon>
-          <ListItemText primary="Notes"/>
+          <ListItemText primary="Notes" />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
             <LibraryBooksIcon />
           </ListItemIcon>
-          <ListItemText primary="Notebook"/>
+          <ListItemText primary="Notebook" />
         </ListItem>
       </List>
       <Divider />
     </Fragment>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <nav className={classes.drawer}>
       <Hidden smUp implementation="css">
         <Drawer
           container={container}
-          variant='temporary'
-          anchor='left'
+          variant="temporary"
+          anchor="left"
           open={props.mobileOpen}
           onClose={props.handleDrawerToggle}
           classes={{
@@ -117,8 +143,8 @@ export default function SideBar(props) {
           classes={{
             paper: classes.drawerPaper,
           }}
-          variant='permanent'
-          anchor='left'
+          variant="permanent"
+          anchor="left"
           open
         >
           {drawerContents}
@@ -126,4 +152,4 @@ export default function SideBar(props) {
       </Hidden>
     </nav>
   );
-};
+}

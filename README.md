@@ -52,4 +52,5 @@ You can find it [here](https://evernote.com/). <br />
 - clone project with `git clone`
 - run `npm install` in both the `/api` and the `/notebee` directories
 - configure .env files in both the `/api` and the `/notebee` directories according to the .env.sample files
+- send a `GET` request to `${API}/db/creation` to create the database
 - run `npm start` in both the `/api` and the `/notebee` directories
