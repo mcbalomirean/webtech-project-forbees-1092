@@ -52,8 +52,8 @@ app.use(AuthController.passport.session());
 // routing goes here
 app.use("/auth", authRoute);
 app.use("/groups", groupsRoute);
-app.use("/test", testRoute);
 app.use("/notes", notesRoute);
+app.use("/test", testRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
