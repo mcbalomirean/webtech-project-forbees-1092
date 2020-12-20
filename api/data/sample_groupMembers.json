@@ -1,0 +1,18 @@
+[
+  {
+    "studentId": "1",
+    "groupId": 2
+  },
+  {
+    "studentId": "2",
+    "groupId": 1
+  },
+  {
+    "studentId": "3",
+    "groupId": 2
+  },
+  {
+    "studentId": "4",
+    "groupId": 1
+  }
+]
