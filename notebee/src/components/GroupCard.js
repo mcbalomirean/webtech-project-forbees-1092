@@ -36,7 +36,7 @@ export default function GroupCard(props) {
     const API = process.env.REACT_APP_API_BASEURL;
     const id = props.group.id;
     axios.get(API + "/groups/members/" + id).then((result) => {
-      setStudents(result.data.results.students);
+      setStudents(result.data.students);
       setLoaded(false);
     });
     setIsOpen(!isOpen);

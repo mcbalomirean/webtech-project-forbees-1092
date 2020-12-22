@@ -11,7 +11,7 @@ export default function Groups() {
 
   useEffect(() => {
     axios.get(API + "/groups").then((result) => {
-      setGroups(result.data.results);
+      setGroups(result.data);
     });
   }, []);
 

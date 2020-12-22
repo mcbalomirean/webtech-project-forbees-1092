@@ -10,9 +10,7 @@ module.exports.findAll = (req, res) => {
     ],
   })
     .then((results) => {
-      res.status(200).send({
-        results: results,
-      });
+      res.status(200).send(results);
     })
     .catch(() => {
       res.status(500).send({
@@ -69,9 +67,7 @@ module.exports.findGroupMembers = async (req, res) => {
     },
   })
     .then((results) => {
-      res.status(200).send({
-        results: results,
-      });
+      res.status(200).send(results);
     })
     .catch(() => {
       res.status(500).send({
