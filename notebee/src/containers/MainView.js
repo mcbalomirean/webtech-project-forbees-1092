@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import { AppBar, Toolbar, IconButton, Button } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import Groups from "./Groups";
+import CreateGroup from "./CreateGroup";
 import Notes from "./Notes";
 import NotFound from "../components/NotFound";
 import Welcome from "../components/Welcome";
@@ -14,6 +15,7 @@ class MainView extends Component {
         <Route exact path="/" component={Welcome}></Route>
         <Route exact path="/notes" component={Notes}></Route>
         <Route exact path="/groups" component={Groups}></Route>
+        <Route exact path="/groups/create" component={CreateGroup}></Route>
         <Route exact path="*" component={NotFound}></Route>
       </Switch>
     );

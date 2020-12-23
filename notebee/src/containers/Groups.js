@@ -15,11 +15,19 @@ export default function Groups() {
     });
   }, []);
 
+  async function DeleteGroup(group) {
+    const id = group.id;
+    await axios.delete(API + "/groups/" + id);
+    await axios.get(API + "/groups").then((result) => {
+      setGroups(result.data);
+    });
+  }
+
   return (
     <div>
       <h1>My groups</h1>
       {groups.map((group) => (
-        <GroupCard group={group} id={group.id} />
+        <GroupCard group={group} id={group.id} DeleteGroup={DeleteGroup} />
       ))}
     </div>
   );

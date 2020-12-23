@@ -29,28 +29,22 @@ export default function GroupCard(props) {
   const classes = useStyles();
   const [students, setStudents] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [loaded, setLoaded] = useState(true);
-  const [isDeleted, setIsDeleted] = useState(false);
+  const API = process.env.REACT_APP_API_BASEURL;
 
   const DisplayStudents = () => {
-    const API = process.env.REACT_APP_API_BASEURL;
     const id = props.group.id;
     axios.get(API + "/groups/members/" + id).then((result) => {
       setStudents(result.data.students);
-      setLoaded(false);
     });
     setIsOpen(!isOpen);
     if (isOpen == false) setStudents([]);
   };
 
-  const DeleteGroup = () => {
-    const API = process.env.REACT_APP_API_BASEURL;
-    const id = props.group.id;
-    axios.delete(API + "/groups/" + id);
-    setIsDeleted(true);
-  };
+  async function Delete() {
+    props.DeleteGroup(props.group);
+  }
 
-  return isDeleted ? null : (
+  return (
     <Card className={classes.root}>
       <CardContent>
         <Typography variant="h5" component="h2">
@@ -62,7 +56,7 @@ export default function GroupCard(props) {
         <Button size="small" onClick={DisplayStudents}>
           See group members
         </Button>
-        <Button size="small" onClick={DeleteGroup}>
+        <Button size="small" onClick={Delete}>
           Delete Group
         </Button>
       </CardActions>

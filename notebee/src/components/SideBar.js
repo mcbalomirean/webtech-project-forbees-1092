@@ -75,7 +75,7 @@ export default function SideBar(props) {
           </ListItemIcon>
           <ListItemText primary="Create Note" />
         </ListItem>
-        <ListItem button>
+        <ListItem button component={RouteLink} to="/groups/create">
           <ListItemIcon>
             <GroupAddIcon />
           </ListItemIcon>
