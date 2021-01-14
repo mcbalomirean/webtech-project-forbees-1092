@@ -3,11 +3,15 @@ import React, { useState, useEffect } from "react";
 import GroupCard from "../components/GroupCard";
 
 import axios from "axios";
+import { useAuth } from "../hooks/useAuth";
+import { Typography } from "@material-ui/core";
 
 const API = process.env.REACT_APP_API_BASEURL;
 
 export default function Groups() {
+  const auth = useAuth();
   const [groups, setGroups] = useState([]);
+  const [username, setUsername] = useState([]);
 
   useEffect(() => {
     axios.get(API + "/groups").then((result) => {
@@ -25,10 +29,19 @@ export default function Groups() {
 
   return (
     <div>
-      <h1>My groups</h1>
-      {groups.map((group) => (
-        <GroupCard group={group} id={group.id} DeleteGroup={DeleteGroup} />
-      ))}
+      {auth.user ? (
+        <h1>My groups</h1>
+      ) : (
+        <h1>Please Log In to see your groups!</h1>
+      )}
+
+      {auth.user ? (
+        groups.map((group) => (
+          <GroupCard group={group} id={group.id} DeleteGroup={DeleteGroup} />
+        ))
+      ) : (
+        <Typography variant="h4" align="center"></Typography>
+      )}
     </div>
   );
 }

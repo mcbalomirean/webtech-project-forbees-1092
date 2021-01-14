@@ -3,8 +3,11 @@ import axios from "axios";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import GroupCard from "../components/GroupCard";
+import { useAuth } from "../hooks/useAuth";
+import { Typography } from "@material-ui/core";
 
 export default function CreateGroup() {
+  const auth = useAuth();
   const API = process.env.REACT_APP_API_BASEURL;
   useEffect(() => {
     axios.get(API + "/groups").then((result) => {
@@ -37,32 +40,40 @@ export default function CreateGroup() {
 
   return (
     <div>
-      <form>
-        <br />
-        <TextField
-          id="outlined-basic"
-          label="Group name"
-          variant="outlined"
-          onChange={handleNameChange}
-        />
-        <br />
-        <br />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={addButton}
-          value="submit"
-          disableElevation
-        >
-          Create Group
-        </Button>
-        <br />
-        <br />
-      </form>
+      {auth.user ? (
+        <form>
+          <br />
+          <TextField
+            id="outlined-basic"
+            label="Group name"
+            variant="outlined"
+            onChange={handleNameChange}
+          />
+          <br />
+          <br />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={addButton}
+            value="submit"
+            disableElevation
+          >
+            Create Group
+          </Button>
+          <br />
+          <br />
+        </form>
+      ) : (
+        <Typography variant="h4" align="center"></Typography>
+      )}
 
-      {groups.map((group) => (
-        <GroupCard group={group} id={group.id} DeleteGroup={DeleteGroup} />
-      ))}
+      {auth.user ? (
+        groups.map((group) => (
+          <GroupCard group={group} id={group.id} DeleteGroup={DeleteGroup} />
+        ))
+      ) : (
+        <h1>Please Log In to create a group!</h1>
+      )}
     </div>
   );
 }
