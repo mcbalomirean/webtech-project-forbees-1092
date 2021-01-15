@@ -53,7 +53,7 @@ app.use(AuthController.passport.session());
 // routing goes here
 app.use("/auth", authRoute);
 app.use("/groups", groupsRoute);
-app.use("/notes", notesRoute);
+app.use("/notes", AuthController.checkAuth, notesRoute);
 app.use("/subjects", subjectsRoute);
 app.use("/test", testRoute);
 
