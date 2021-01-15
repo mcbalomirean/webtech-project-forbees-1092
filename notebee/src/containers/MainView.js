@@ -11,13 +11,15 @@ import Welcome from "../components/Welcome";
 class MainView extends Component {
   render() {
     return (
-      <Switch>
-        <Route exact path="/" component={Welcome}></Route>
-        <Route exact path="/notes" component={Notes}></Route>
-        <Route exact path="/groups" component={Groups}></Route>
-        <Route exact path="/groups/create" component={CreateGroup}></Route>
-        <Route exact path="*" component={NotFound}></Route>
-      </Switch>
+      <div style={{ padding: "30px" }}>
+        <Switch>
+          <Route exact path="/" component={Welcome}></Route>
+          <Route exact path="/notes" component={Notes}></Route>
+          <Route exact path="/groups" component={Groups}></Route>
+          <Route exact path="/groups/create" component={CreateGroup}></Route>
+          <Route exact path="*" component={NotFound}></Route>
+        </Switch>
+      </div>
     );
   }
 }

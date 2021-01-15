@@ -45,31 +45,33 @@ export default function GroupCard(props) {
   }
 
   return (
-    <Card className={classes.root}>
-      <CardContent>
-        <Typography variant="h5" component="h2">
-          Group: {props.group.name}
-          <br />
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small" onClick={DisplayStudents}>
-          See group members
-        </Button>
-        <Button size="small" onClick={Delete}>
-          Delete Group
-        </Button>
-      </CardActions>
-      {isOpen ? (
-        students.map((student) => (
-          <Typography>
-            {student.email}
+    <div style={{ padding: "10px" }}>
+      <Card className={classes.root}>
+        <CardContent>
+          <Typography variant="h5" component="h2">
+            Group: {props.group.name}
             <br />
           </Typography>
-        ))
-      ) : (
-        <Typography> </Typography>
-      )}
-    </Card>
+        </CardContent>
+        <CardActions>
+          <Button size="small" onClick={DisplayStudents}>
+            See group members
+          </Button>
+          <Button size="small" onClick={Delete}>
+            Delete Group
+          </Button>
+        </CardActions>
+        {isOpen ? (
+          students.map((student) => (
+            <Typography>
+              {student.email}
+              <br />
+            </Typography>
+          ))
+        ) : (
+          <Typography> </Typography>
+        )}
+      </Card>
+    </div>
   );
 }
