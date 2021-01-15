@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Link as RouteLink } from "react-router-dom"; // TODO: routing links
 import {
   Hidden,
@@ -9,6 +9,7 @@ import {
   ListItemIcon,
   ListItemText,
   Link,
+  Snackbar,
 } from "@material-ui/core";
 import {
   AccountCircle as AccountCircleIcon,
@@ -17,14 +18,18 @@ import {
   NoteAdd as NoteAddIcon,
   SupervisedUserCircle as SupervisedUserCircleIcon,
   Subject as SubjectIcon,
+  ExitToApp as ExitToAppIcon,
 } from "@material-ui/icons";
+import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import GoogleIcon from "./GoogleIcon";
 import { useAuth } from "../hooks/useAuth";
+import CreateNoteDialog from "../containers/CreateNoteDialog";
 
 const API = process.env.REACT_APP_API_BASEURL;
 
 const drawerWidth = 200;
+const snackbarDuration = 5000;
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -44,6 +49,42 @@ export default function SideBar(props) {
   const classes = useStyles();
   const auth = useAuth();
 
+  const [createNoteOpen, setCreateNoteOpen] = useState(false);
+  const handleCreateNoteOpen = () => {
+    setCreateNoteOpen(true);
+  };
+  const handleCreateNoteClose = () => {
+    setCreateNoteOpen(false);
+  };
+
+  const [successMessage, setSuccessMessage] = useState("");
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const handleSuccessOpen = (message) => {
+    setSuccessMessage(message);
+    setOpenSuccess(true);
+  };
+  const handleSuccessClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSuccess(false);
+  };
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const [openError, setOpenError] = useState(false);
+  const handleErrorOpen = (message) => {
+    setErrorMessage(message);
+    setOpenError(true);
+  };
+  const handleErrorClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenError(false);
+  };
+
   const drawerContents = (
     <Fragment>
       <div className={classes.toolbar} />{" "}
@@ -54,7 +95,7 @@ export default function SideBar(props) {
         {auth.user ? (
           <ListItem button onClick={auth.logout}>
             <ListItemIcon>
-              <GoogleIcon />
+              <ExitToAppIcon />
             </ListItemIcon>
             <ListItemText primary="Logout" />
           </ListItem>
@@ -69,7 +110,7 @@ export default function SideBar(props) {
       </List>
       <Divider />
       <List>
-        <ListItem button>
+        <ListItem button onClick={handleCreateNoteOpen}>
           <ListItemIcon>
             <NoteAddIcon />
           </ListItemIcon>
@@ -150,6 +191,30 @@ export default function SideBar(props) {
           {drawerContents}
         </Drawer>
       </Hidden>
+      <CreateNoteDialog
+        open={createNoteOpen}
+        handleClose={handleCreateNoteClose}
+        handleSuccess={handleSuccessOpen}
+        handleError={handleErrorOpen}
+      />
+      <Snackbar
+        open={openSuccess}
+        autoHideDuration={snackbarDuration}
+        onClose={handleSuccessClose}
+      >
+        <Alert elevation={6} onClose={handleSuccessClose} severity="success">
+          {successMessage}
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={openError}
+        autoHideDuration={snackbarDuration}
+        onClose={handleErrorClose}
+      >
+        <Alert elevation={6} onClose={handleErrorClose} severity="error">
+          {errorMessage}
+        </Alert>
+      </Snackbar>
     </nav>
   );
 }

@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  makeStyles,
-  Container,
-  TextField,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Grid,
-  Paper,
   MenuItem,
+  TextField,
 } from "@material-ui/core";
 import axios from "axios";
 
-// TODO: export to constants.js file?
+const rows = 16;
+
 const API = process.env.REACT_APP_API_BASEURL;
 
 const config = {
@@ -18,17 +20,15 @@ const config = {
   withCredentials: true,
 };
 
-const rows = 16;
+const initialFormState = {
+  title: "",
+  subject: "",
+  contents: "",
+  keywords: "",
+  tags: "",
+};
 
-const useStyles = makeStyles((theme) => ({
-  form: {
-    width: "100%", // Fix IE 11 issue, according to Material-UI developers.
-    padding: theme.spacing(2),
-  },
-}));
-
-export default function NoteEditor(props) {
-  const classes = useStyles();
+export default function CreateNoteDialog(props) {
   const [subjects, setSubjects] = useState([]);
   useEffect(() => {
     // There is a reason we are using an arrow function encapsulated into a variable:
@@ -47,14 +47,9 @@ export default function NoteEditor(props) {
 
     loadSubjects();
   }, []);
+
   // TODO: consolidate state?
-  const [form, setForm] = useState({
-    title: "",
-    subject: "",
-    contents: "",
-    keywords: "",
-    tags: "",
-  });
+  const [form, setForm] = useState(initialFormState);
 
   const handleInputChange = (event) => {
     setForm((prevState) => ({
@@ -63,10 +58,35 @@ export default function NoteEditor(props) {
     }));
   };
 
+  const handleInputSave = async () => {
+    try {
+      if (form.title === "" || form.subject === "") {
+        throw new Error("You must fill in all required fields!");
+      }
+
+      await axios.post(`${API}/notes/`, form, config);
+      props.handleSuccess("Note added successfully!");
+      setForm(initialFormState);
+      props.handleClose();
+    } catch (error) {
+      props.handleError(error.message);
+    }
+  };
+
+  const handleInputCancel = () => {
+    setForm(initialFormState);
+    props.handleClose();
+  };
+
   return (
-    <Container component="main" maxWidth="xs">
-      <Paper component="form" className={classes.form} autoComplete="off">
-        <Grid container spacing={2}>
+    <Dialog
+      open={props.open}
+      onClose={handleInputCancel}
+      aria-label="Create Note"
+    >
+      <DialogTitle>Create Note</DialogTitle>
+      <DialogContent>
+        <Grid container component="form" autoComplete="off" spacing={2}>
           <Grid item xs={12}>
             <TextField
               id="titleField"
@@ -77,6 +97,7 @@ export default function NoteEditor(props) {
               fullWidth
               value={form.title}
               onChange={handleInputChange}
+              error={form.title === ""}
             />
           </Grid>
           <Grid item xs={12}>
@@ -90,6 +111,7 @@ export default function NoteEditor(props) {
               fullWidth
               value={form.subject}
               onChange={handleInputChange}
+              error={form.subject === ""}
             >
               {subjects.map((subject) => (
                 <MenuItem key={subject} value={subject}>
@@ -110,6 +132,7 @@ export default function NoteEditor(props) {
               fullWidth
               value={form.contents}
               onChange={handleInputChange}
+              helperText="Supports Markdown notation."
             />
           </Grid>
           <Grid item xs={12}>
@@ -121,6 +144,7 @@ export default function NoteEditor(props) {
               fullWidth
               value={form.keywords}
               onChange={handleInputChange}
+              helperText="Separate keywords by commas, e.g.: keyword1, keyword2"
             />
           </Grid>
           <Grid item xs={12}>
@@ -132,20 +156,15 @@ export default function NoteEditor(props) {
               fullWidth
               value={form.tags}
               onChange={handleInputChange}
+              helperText="Separate tags by commas, e.g.: tag1, tag2"
             />
           </Grid>
-          <Grid item xs={6}>
-            <Button variant="contained" fullWidth>
-              Save
-            </Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button variant="contained" fullWidth>
-              Cancel
-            </Button>
-          </Grid>
         </Grid>
-      </Paper>
-    </Container>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleInputCancel}>Cancel</Button>
+        <Button onClick={handleInputSave}>Save</Button>
+      </DialogActions>
+    </Dialog>
   );
 }
