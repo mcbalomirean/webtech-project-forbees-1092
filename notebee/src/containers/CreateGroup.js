@@ -39,6 +39,7 @@ export default function CreateGroup() {
       setGroups(result.data);
     });
   }
+
   function handleNameChange(event) {
     setName(event.target.value);
   }
