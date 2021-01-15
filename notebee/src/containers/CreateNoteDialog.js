@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 
+const maxLength = 2 ** 16 - 1;
 const rows = 16;
 
 const API = process.env.REACT_APP_API_BASEURL;
@@ -62,6 +63,9 @@ export default function CreateNoteDialog(props) {
     try {
       if (form.title === "" || form.subject === "") {
         throw new Error("You must fill in all required fields!");
+      }
+      if (form.contents.length > maxLength) {
+        throw new Error("Contents too long!");
       }
 
       await axios.post(`${API}/notes/`, form, config);
@@ -121,6 +125,7 @@ export default function CreateNoteDialog(props) {
             </TextField>
           </Grid>
           <Grid item xs={12}>
+            {/* TODO: change helper text dynamically */}
             <TextField
               id="contentsField"
               name="contents"
@@ -132,6 +137,7 @@ export default function CreateNoteDialog(props) {
               fullWidth
               value={form.contents}
               onChange={handleInputChange}
+              error={form.contents.length > maxLength}
               helperText="Supports Markdown notation."
             />
           </Grid>
