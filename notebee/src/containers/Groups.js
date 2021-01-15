@@ -7,6 +7,10 @@ import { useAuth } from "../hooks/useAuth";
 import { Typography } from "@material-ui/core";
 
 const API = process.env.REACT_APP_API_BASEURL;
+const config = {
+  baseURL: `${API}`,
+  withCredentials: true,
+};
 
 export default function Groups() {
   const auth = useAuth();
@@ -14,15 +18,15 @@ export default function Groups() {
   const [username, setUsername] = useState([]);
 
   useEffect(() => {
-    axios.get(API + "/groups").then((result) => {
+    axios.get(API + "/groups", config).then((result) => {
       setGroups(result.data);
     });
   }, []);
 
   async function DeleteGroup(group) {
     const id = group.id;
-    await axios.delete(API + "/groups/" + id);
-    await axios.get(API + "/groups").then((result) => {
+    await axios.delete(API + "/groups/" + id, config);
+    await axios.get(API + "/groups", config).then((result) => {
       setGroups(result.data);
     });
   }

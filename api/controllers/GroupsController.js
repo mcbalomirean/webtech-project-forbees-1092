@@ -8,6 +8,9 @@ module.exports.findAll = (req, res) => {
         model: db.Students,
       },
     ],
+    where: {
+      owner: req.user.email,
+    },
   })
     .then((results) => {
       res.status(200).send(results);
@@ -33,6 +36,7 @@ module.exports.create = async (req, res) => {
   try {
     let group = await db.Groups.create({
       name: req.body.name,
+      owner: req.user.email,
     });
     let student = await db.Students.findByPk(req.user.id);
     group.addStudent(student);
