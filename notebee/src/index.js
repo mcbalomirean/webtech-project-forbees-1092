@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { CssBaseline } from "@material-ui/core";
-import "fontsource-roboto";
+import "@fontsource/roboto";
 import "./index.css";
 import App from "./containers/App";
 import reportWebVitals from "./reportWebVitals";
