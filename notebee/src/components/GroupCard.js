@@ -5,8 +5,14 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-
 import axios from "axios";
+
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const useStyles = makeStyles({
   root: {
@@ -25,11 +31,19 @@ const useStyles = makeStyles({
   },
 });
 
+const API = process.env.REACT_APP_API_BASEURL;
+const config = {
+  baseURL: `${API}`,
+  withCredentials: true,
+};
+
 export default function GroupCard(props) {
   const classes = useStyles();
   const [students, setStudents] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const API = process.env.REACT_APP_API_BASEURL;
+  //this is for add button
+  const [open, setOpen] = React.useState(false);
+  const [name, setName] = useState("");
 
   const DisplayStudents = () => {
     const id = props.group.id;
@@ -42,6 +56,40 @@ export default function GroupCard(props) {
 
   async function Delete() {
     props.DeleteGroup(props.group);
+  }
+
+  function handleNameChange(event) {
+    setName(event.target.value);
+  }
+
+  async function addStudent(event) {
+    setOpen(!open);
+    const id = props.group.id;
+    await axios.post(API + "/groups/add", { email: name, groupId: id }, config);
+  }
+
+  function Form() {
+    return (
+      <form>
+        <br />
+        <TextField
+          id="outlined-basic"
+          label="Group name"
+          variant="outlined"
+          onChange={handleNameChange}
+        />
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={addStudent}
+          value="submit"
+          disableElevation
+        >
+          Create Group
+        </Button>
+      </form>
+    );
   }
 
   return (
@@ -60,6 +108,9 @@ export default function GroupCard(props) {
           <Button size="small" onClick={Delete}>
             Delete Group
           </Button>
+          <Button size="small" onClick={addStudent}>
+            Add student
+          </Button>
         </CardActions>
         {isOpen ? (
           students.map((student) => (
@@ -71,6 +122,8 @@ export default function GroupCard(props) {
         ) : (
           <Typography> </Typography>
         )}
+
+        {open ? Form() : <Typography> </Typography>}
       </Card>
     </div>
   );

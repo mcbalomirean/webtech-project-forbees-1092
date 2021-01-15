@@ -83,9 +83,25 @@ module.exports.findGroupMembers = async (req, res) => {
 };
 
 //TO DO
+// module.exports.add = async (req, res) => {
+//   try {
+//     let student = await db.Students.findByPk(req.body.studentId);
+//     let group = await db.Groups.findByPk(req.body.groupId);
+//     await group.addStudent(student);
+//     await student.addGroup(group);
+
+//     res.status(201).send(student);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send("Server error");
+//   }
+// };
+
 module.exports.add = async (req, res) => {
   try {
-    let student = await db.Students.findByPk(req.body.studentId);
+    let student = await db.Students.findOne({
+      where: { email: req.body.email },
+    });
     let group = await db.Groups.findByPk(req.body.groupId);
     await group.addStudent(student);
     await student.addGroup(group);
@@ -94,5 +110,38 @@ module.exports.add = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send("Server error");
+  }
+};
+
+// module.exports.remove = async (req, res) => {
+//   try {
+//     let student = await db.Students.findOne({
+//       where: { email: req.body.email },
+//     });
+//     let group = await db.Groups.findByPk(req.body.groupId);
+//     await student.removeGroup(group);
+//     await group.removeStudent(student);
+
+//     res.status(201).send(student);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send("Server error");
+//   }
+// };
+
+module.exports.remove = async (req, res) => {
+  try {
+    let student = await db.Students.findOne({
+      where: { email: req.body.email },
+    });
+    let result = await db.GroupMembers.destroy({
+      where: {
+        studentId: student.id,
+      },
+    });
+    res.status(200).send("deleted");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error.");
   }
 };
