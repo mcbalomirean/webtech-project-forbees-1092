@@ -34,6 +34,8 @@ module.exports.create = async (req, res) => {
     let group = await db.Groups.create({
       name: req.body.name,
     });
+    let student = await db.Students.findByPk(req.user.id);
+    group.addStudent(student);
     res.status(201).send(group);
   } catch (error) {
     console.log(error);

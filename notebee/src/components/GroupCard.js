@@ -63,7 +63,7 @@ export default function GroupCard(props) {
         </CardActions>
         {isOpen ? (
           students.map((student) => (
-            <Typography>
+            <Typography style={{ padding: "10px" }}>
               {student.email}
               <br />
             </Typography>

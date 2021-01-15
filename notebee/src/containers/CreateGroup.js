@@ -9,8 +9,13 @@ import { Typography } from "@material-ui/core";
 export default function CreateGroup() {
   const auth = useAuth();
   const API = process.env.REACT_APP_API_BASEURL;
+  const config = {
+    baseURL: `${API}`,
+    withCredentials: true,
+  };
+
   useEffect(() => {
-    axios.get(API + "/groups").then((result) => {
+    axios.get(API + "/groups", config).then((result) => {
       setGroups(result.data);
     });
   }, []);
@@ -19,18 +24,18 @@ export default function CreateGroup() {
   const [groups, setGroups] = useState([]);
 
   async function addButton(event) {
-    await axios.post(API + "/groups/create", { name });
+    await axios.post(API + "/groups/create", { name }, config);
 
-    await axios.get(API + "/groups").then((result) => {
+    await axios.get(API + "/groups", config).then((result) => {
       setGroups(result.data);
     });
   }
 
   async function DeleteGroup(group) {
     const id = group.id;
-    await axios.delete(API + "/groups/" + id);
+    await axios.delete(API + "/groups/" + id, config);
     // setIsDeleted(true);
-    await axios.get(API + "/groups").then((result) => {
+    await axios.get(API + "/groups", config).then((result) => {
       setGroups(result.data);
     });
   }
