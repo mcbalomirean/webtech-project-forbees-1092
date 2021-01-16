@@ -36,14 +36,14 @@ export default function Welcome() {
             Please login by pressing the button in the menu!
           </Typography>
           <img
-            src="logo192.png"
+            src={process.env.PUBLIC_URL + "/logo192.png"}
             alt="NoteBee Logo"
             style={{
               display: "block",
               marginLeft: "auto",
               marginRight: "auto",
             }}
-          ></img>
+          />
         </div>
       )}
     </Fragment>

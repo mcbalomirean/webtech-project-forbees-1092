@@ -11,7 +11,7 @@ export default function NotFound() {
         The page you're looking for was not found.
       </Typography>
       <img
-        src="logo192.png"
+        src={process.env.PUBLIC_URL + "/logo192.png"}
         alt="NoteBee Logo"
         style={{ display: "block", marginLeft: "auto", marginRight: "auto" }}
       ></img>
