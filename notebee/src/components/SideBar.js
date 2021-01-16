@@ -126,7 +126,7 @@ export default function SideBar(props) {
           </ListItemIcon>
           <ListItemText primary="Create Note" />
         </ListItem>
-        <ListItem button onClick={handleCreateGroupOpen}>
+        <ListItem button component={RouteLink} to="/notes">
           <ListItemIcon>
             <SubjectIcon />
           </ListItemIcon>
@@ -135,7 +135,7 @@ export default function SideBar(props) {
       </List>
       <Divider />
       <List>
-        <ListItem button component={RouteLink} to="/groups/create">
+        <ListItem button onClick={handleCreateGroupOpen}>
           <ListItemIcon>
             <GroupAddIcon />
           </ListItemIcon>
