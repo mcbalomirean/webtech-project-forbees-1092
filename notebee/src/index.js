@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
 import "@fontsource/roboto";
 import "./index.css";
-import notebeeTheme from "./notebeeTheme";
+import notebeeTheme from "./util/notebeeTheme";
 import App from "./containers/App";
 import reportWebVitals from "./reportWebVitals";
 

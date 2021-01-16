@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useHistory } from "react-router";
 import {
   Button,
@@ -8,11 +9,10 @@ import {
   DialogTitle,
   TextField,
 } from "@material-ui/core";
-import axios from "axios";
+import { API } from "../util/constants";
 
 const maxLength = 2 ** 8 - 1;
 
-const API = process.env.REACT_APP_API_BASEURL;
 const config = {
   baseURL: `${API}/groups`,
   withCredentials: true,
