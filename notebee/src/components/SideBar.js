@@ -51,7 +51,9 @@ export default function SideBar(props) {
 
   const [createNoteOpen, setCreateNoteOpen] = useState(false);
   const handleCreateNoteOpen = () => {
-    setCreateNoteOpen(true);
+    auth.user
+      ? setCreateNoteOpen(true)
+      : handleErrorOpen("You must login before you can add notes!");
   };
   const handleCreateNoteClose = () => {
     setCreateNoteOpen(false);
