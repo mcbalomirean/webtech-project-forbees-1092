@@ -6,7 +6,7 @@ router.post("/", NotesController.create);
 
 router.get("/", NotesController.findAll);
 router.get("/:id", NotesController.findOne);
-router.get("/:id/content", NotesController.getContents);
+router.get("/:id/contents", NotesController.getContents);
 
 router.delete("/:id", NotesController.delete);
 
