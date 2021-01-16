@@ -49,11 +49,13 @@ export default function Groups() {
       {auth.user ? (
         <Grid className={classes.root} container spacing={2}>
           {groups.map((group) => (
-            <GroupCard
-              group={group}
-              id={group.id}
-              handleDelete={handleDelete}
-            />
+            <Grid item xs={12} key={group.id}>
+              <GroupCard
+                group={group}
+                id={group.id}
+                handleDelete={handleDelete}
+              />
+            </Grid>
           ))}
         </Grid>
       ) : (

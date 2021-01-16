@@ -47,7 +47,7 @@ export default function GroupCard(props) {
   //Function used to display all the students from a group
   const DisplayStudents = () => {
     const id = props.group.id;
-    axios.get("/" + id + "/members").then((result) => {
+    axios.get("/" + id + "/members", config).then((result) => {
       setStudents(result.data.students);
     });
     setIsOpen(!isOpen);
@@ -163,18 +163,7 @@ export default function GroupCard(props) {
           <Button size="small" onClick={handleRemove} color="primary">
             Remove
           </Button>
-          <Button
-            // style={{
-            //   borderRadius: 5,
-            //   backgroundColor: "#de403a",
-            // }}
-            size="small"
-            onClick={handleInputDelete}
-            style={{
-              color: "red",
-            }}
-            // startIcon={<DeleteIcon />}
-          >
+          <Button color="secondary" size="small" onClick={handleInputDelete}>
             Delete
           </Button>
         </CardActions>
