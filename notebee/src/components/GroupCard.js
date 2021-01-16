@@ -43,6 +43,7 @@ export default function GroupCard(props) {
   const [isOpen, setIsOpen] = useState(false);
   //this is for add button
   const [open, setOpen] = React.useState(false);
+  const [removeOpen, setRemoveOpen] = React.useState(false);
   const [name, setName] = useState("");
 
   const DisplayStudents = () => {
@@ -68,14 +69,21 @@ export default function GroupCard(props) {
     await axios.post(API + "/groups/add", { email: name, groupId: id }, config);
   }
 
-  function Form() {
+  async function removeStudent(event) {
+    setRemoveOpen(!removeOpen);
+    const id = props.group.id;
+    await axios.delete(API + "/groups/remove/" + name, { groupId: id }, config);
+  }
+
+  function AddForm() {
     return (
-      <form>
+      <form style={{ padding: "10px" }}>
         <br />
         <TextField
           id="outlined-basic"
           label="Group name"
           variant="outlined"
+          size="small"
           onChange={handleNameChange}
         />
 
@@ -85,8 +93,35 @@ export default function GroupCard(props) {
           onClick={addStudent}
           value="submit"
           disableElevation
+          style={{ margin: "2px 0px 0px 5px" }}
         >
-          Create Group
+          Add
+        </Button>
+      </form>
+    );
+  }
+
+  function RemoveForm() {
+    return (
+      <form style={{ padding: "10px" }}>
+        <br />
+        <TextField
+          id="outlined-basic"
+          label="Group name"
+          variant="outlined"
+          size="small"
+          onChange={handleNameChange}
+        />
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={removeStudent}
+          value="submit"
+          disableElevation
+          style={{ margin: "2px 0px 0px 5px" }}
+        >
+          Remove
         </Button>
       </form>
     );
@@ -111,6 +146,10 @@ export default function GroupCard(props) {
           <Button size="small" onClick={addStudent}>
             Add student
           </Button>
+
+          <Button size="small" onClick={removeStudent}>
+            Remove student
+          </Button>
         </CardActions>
         {isOpen ? (
           students.map((student) => (
@@ -123,7 +162,8 @@ export default function GroupCard(props) {
           <Typography> </Typography>
         )}
 
-        {open ? Form() : <Typography> </Typography>}
+        {open ? AddForm() : <Typography> </Typography>}
+        {removeOpen ? RemoveForm() : <Typography> </Typography>}
       </Card>
     </div>
   );

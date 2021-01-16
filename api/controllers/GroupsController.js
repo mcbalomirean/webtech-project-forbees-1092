@@ -129,14 +129,32 @@ module.exports.add = async (req, res) => {
 //   }
 // };
 
+// module.exports.remove = async (req, res) => {
+//   try {
+//     let student = await db.Students.findOne({
+//       where: { email: req.body.email },
+//     });
+//     let result = await db.GroupMembers.destroy({
+//       where: {
+//         studentId: student.id,
+//       },
+//     });
+//     res.status(200).send("deleted");
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send("Server error.");
+//   }
+// };
+
 module.exports.remove = async (req, res) => {
   try {
     let student = await db.Students.findOne({
-      where: { email: req.body.email },
+      where: { email: req.params.email },
     });
     let result = await db.GroupMembers.destroy({
       where: {
         studentId: student.id,
+        groupId: req.body.groupId,
       },
     });
     res.status(200).send("deleted");

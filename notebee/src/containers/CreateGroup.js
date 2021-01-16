@@ -54,6 +54,7 @@ export default function CreateGroup() {
             label="Group name"
             variant="outlined"
             onChange={handleNameChange}
+            style={{ padding: "10px" }}
           />
           <br />
           <br />
@@ -63,6 +64,7 @@ export default function CreateGroup() {
             onClick={addButton}
             value="submit"
             disableElevation
+            style={{ margin: "10px" }}
           >
             Create Group
           </Button>
