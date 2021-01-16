@@ -5,8 +5,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import SearchAppBar from "../components/SearchAppBar";
 import NoteCard from "../components/NoteCard";
 import { useAuth } from "../hooks/useAuth";
+import { Typography } from "@material-ui/core";
 
 const API = process.env.REACT_APP_API_BASEURL;
+
+// In order to use authentication
 const config = {
   baseURL: `${API}`,
   withCredentials: true,
@@ -19,17 +22,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Notes(props) {
+  // Logged in or not
   const auth = useAuth();
   const classes = useStyles();
   const [notes, setNotes] = useState([]);
 
+  // Load notes from db
   useEffect(() => {
     axios.get(API + "/notes", config).then((result) => {
       setNotes(result.data);
     });
   }, []);
 
-
+  // Delete note function based on id
   async function DeleteNote(note) {
     const id = note.id;
     await axios.delete(API + "/notes/" + id, config);
@@ -38,9 +43,8 @@ export default function Notes(props) {
     });
   }
 
-
+  // We check if the user is authenticated; if he is not, show a message
   return (
-    //we check if the user is authenticated; if he is not, show a message
     <div>
     {auth.user? (
       <Fragment>
@@ -56,7 +60,17 @@ export default function Notes(props) {
           ))}
         </Grid>
       </Fragment>
-    ) : <h1>Please Log in to see your notes</h1>}
+    ) : (
+      <Fragment>
+        <SearchAppBar
+          name="Notes"
+          handleDrawerToggle={props.handleDrawerToggle}
+        />
+        <Typography variant="h4" align="center" style={{ padding: "10px" }}>
+          Please Log in to see your notes!
+        </Typography>
+        </Fragment>
+      )}
     </div>
   );
 }
