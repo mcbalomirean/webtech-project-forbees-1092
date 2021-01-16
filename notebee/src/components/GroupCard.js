@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 //styles
 const useStyles = makeStyles({
@@ -97,7 +98,7 @@ export default function GroupCard(props) {
         <br />
         <TextField
           id="outlined-basic"
-          label="Student Name"
+          label="Student Email"
           variant="outlined"
           size="small"
           onChange={handleNameChange}
@@ -125,7 +126,7 @@ export default function GroupCard(props) {
         <br />
         <TextField
           id="outlined-basic"
-          label="Student Name"
+          label="Student Email"
           variant="outlined"
           size="small"
           onChange={handleNameChange}
@@ -156,18 +157,29 @@ export default function GroupCard(props) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={DisplayStudents}>
+          <Button size="small" onClick={DisplayStudents} color="primary">
             View members
           </Button>
 
-          <Button size="small" onClick={handleAdd}>
+          <Button size="small" onClick={handleAdd} color="primary">
             Add
           </Button>
 
-          <Button size="small" onClick={handleRemove}>
+          <Button size="small" onClick={handleRemove} color="primary">
             Remove
           </Button>
-          <Button size="small" onClick={Delete}>
+          <Button
+            // style={{
+            //   borderRadius: 5,
+            //   backgroundColor: "#de403a",
+            // }}
+            size="small"
+            onClick={Delete}
+            style={{
+              color: "red",
+            }}
+            // startIcon={<DeleteIcon />}
+          >
             Delete
           </Button>
         </CardActions>

@@ -25,6 +25,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import GoogleIcon from "./GoogleIcon";
 import { useAuth } from "../hooks/useAuth";
 import CreateNoteDialog from "../containers/CreateNoteDialog";
+import CreateGroupDialog from "../containers/CreateGroupDialog";
 
 const API = process.env.REACT_APP_API_BASEURL;
 
@@ -55,6 +56,14 @@ export default function SideBar(props) {
   };
   const handleCreateNoteClose = () => {
     setCreateNoteOpen(false);
+  };
+
+  const [createGroupOpen, setCreateGroupOpen] = useState(false);
+  const handleCreateGroupOpen = () => {
+    setCreateGroupOpen(true);
+  };
+  const handleCreateGroupClose = () => {
+    setCreateGroupOpen(false);
   };
 
   const [successMessage, setSuccessMessage] = useState("");
@@ -115,7 +124,7 @@ export default function SideBar(props) {
           </ListItemIcon>
           <ListItemText primary="Create Note" />
         </ListItem>
-        <ListItem button component={RouteLink} to="/groups/create">
+        <ListItem button onClick={handleCreateGroupOpen}>
           <ListItemIcon>
             <GroupAddIcon />
           </ListItemIcon>
@@ -193,6 +202,12 @@ export default function SideBar(props) {
       <CreateNoteDialog
         open={createNoteOpen}
         handleClose={handleCreateNoteClose}
+        handleSuccess={handleSuccessOpen}
+        handleError={handleErrorOpen}
+      />
+      <CreateGroupDialog
+        open={createGroupOpen}
+        handleClose={handleCreateGroupClose}
         handleSuccess={handleSuccessOpen}
         handleError={handleErrorOpen}
       />

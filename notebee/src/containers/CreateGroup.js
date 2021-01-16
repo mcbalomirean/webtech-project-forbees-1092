@@ -6,7 +6,7 @@ import GroupCard from "../components/GroupCard";
 import { useAuth } from "../hooks/useAuth";
 import { Typography } from "@material-ui/core";
 
-export default function CreateGroup() {
+export default function CreateGroup(props) {
   //Sets the base URL for requests
   const API = process.env.REACT_APP_API_BASEURL;
   //Used in order to use its hook to see if the user is logged in or not
@@ -30,13 +30,25 @@ export default function CreateGroup() {
 
   //Function to add a group, receives its name
   async function addButton(event) {
-    await axios.post(API + "/groups/", { name }, config);
+    try {
+      if (name === "") {
+        throw new Error("You must fill a group!");
+      }
+      if (name.length > 30) {
+        throw new Error("Group name too long!");
+      }
 
-    await axios.get(API + "/groups/", config).then((result) => {
-      setGroups(result.data);
-    });
+      await axios.post(API + "/groups/", { name }, config);
+
+      await axios.get(API + "/groups/", config).then((result) => {
+        setGroups(result.data);
+      });
+      // props.handleSuccess("Group added successfully!");
+      // props.handleClose();
+    } catch (error) {
+      // props.handleError(error.message);
+    }
   }
-
   //Function to delete a group by its id
   async function DeleteGroup(group) {
     const id = group.id;
@@ -65,7 +77,7 @@ export default function CreateGroup() {
             style={{ padding: "10px" }}
           />
           <br />
-          <br />
+
           <Button
             variant="contained"
             color="primary"
@@ -76,7 +88,7 @@ export default function CreateGroup() {
           >
             Create Group
           </Button>
-          <br />
+
           <br />
         </form>
       ) : (

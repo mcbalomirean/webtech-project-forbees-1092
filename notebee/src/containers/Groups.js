@@ -38,6 +38,8 @@ export default function Groups() {
   //what is shown on the page, which depends if the user is logged in or not
   return (
     <div>
+      <br />
+      <br />
       {auth.user ? (
         groups.map((group) => (
           <GroupCard group={group} id={group.id} DeleteGroup={DeleteGroup} />
