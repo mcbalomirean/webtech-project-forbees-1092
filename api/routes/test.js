@@ -7,7 +7,6 @@ var subjects = require("../data/subjects.json");
 var students = require("../data/sample_students.json");
 var groups = require("../data/sample_groups.json");
 var notes = require("../data/sample_notes.json");
-var members = require("../data/sample_groupMembers.json");
 
 router.get("/api", function (req, res) {
   res.status(200).send("Express API is functional.");
@@ -26,9 +25,6 @@ router.get("/db/sample", function (req, res) {
     });
     notes.map((note) => {
       db.Notes.create(note);
-    });
-    members.map((member) => {
-      db.GroupMembers.create(member);
     });
 
     res.status(201).send("Database tables created.");

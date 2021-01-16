@@ -115,20 +115,20 @@ export default function SideBar(props) {
           </ListItemIcon>
           <ListItemText primary="Create Note" />
         </ListItem>
+        <ListItem button component={RouteLink} to="/notes">
+          <ListItemIcon>
+            <SubjectIcon />
+          </ListItemIcon>
+          <ListItemText primary="Notes" />
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
         <ListItem button component={RouteLink} to="/groups/create">
           <ListItemIcon>
             <GroupAddIcon />
           </ListItemIcon>
           <ListItemText primary="Create Group" />
-        </ListItem>
-      </List>
-      <Divider />
-      <List>
-        <ListItem button>
-          <ListItemIcon>
-            <AccountCircleIcon />
-          </ListItemIcon>
-          <ListItemText primary="Profile" />
         </ListItem>
         <ListItem button component={RouteLink} to="/groups">
           <ListItemIcon>
@@ -138,20 +138,7 @@ export default function SideBar(props) {
         </ListItem>
       </List>
       <Divider />
-      <List>
-        <ListItem button component={RouteLink} to="/notes">
-          <ListItemIcon>
-            <SubjectIcon />
-          </ListItemIcon>
-          <ListItemText primary="Notes" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <LibraryBooksIcon />
-          </ListItemIcon>
-          <ListItemText primary="Notebook" />
-        </ListItem>
-      </List>
+
       <Divider />
     </Fragment>
   );
