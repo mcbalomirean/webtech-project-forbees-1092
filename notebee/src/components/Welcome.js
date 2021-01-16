@@ -1,7 +1,9 @@
 import React, { Fragment } from "react";
 import { Typography } from "@material-ui/core";
 import { useAuth } from "../hooks/useAuth";
-/*Welcome page, checks if the user is logged in and displays the appropiate message. */
+
+// Welcome page, checks if the user is logged in and displays the appropiate message.
+
 export default function Welcome() {
   const auth = useAuth();
   return (

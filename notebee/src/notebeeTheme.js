@@ -1,5 +1,5 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-/* custom theme modyfing primary and secondary palette colors*/
+// Custom theme modyfing primary and secondary palette colors
 
 export const notebeeTheme = createMuiTheme({
   palette: {

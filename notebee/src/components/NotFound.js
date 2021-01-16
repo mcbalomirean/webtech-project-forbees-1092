@@ -1,6 +1,5 @@
 import { Typography } from "@material-ui/core";
-import "..";
-
+// 404 Error Page, displays an error message
 export default function NotFound() {
   return (
     <div>
