@@ -11,7 +11,7 @@ const API = process.env.REACT_APP_API_BASEURL;
 
 // In order to use authentication
 const config = {
-  baseURL: `${API}`,
+  baseURL: `${API}/notes`,
   withCredentials: true,
 };
 
@@ -30,48 +30,41 @@ export default function Notes(props) {
 
   // Load notes from db
   useEffect(() => {
-    axios.get(API + "/notes", config).then((result) => {
+    axios.get("/", config).then((result) => {
       setNotes(result.data);
     });
   }, []);
 
   // Delete note function based on id
-  async function DeleteNote(note) {
-    const id = note.id;
-    await axios.delete(API + "/notes/" + id, config);
-    await axios.get(API + "/notes", config).then((result) => {
-      setNotes(result.data);
-    });
+  async function handleDelete(noteId) {
+    await axios.delete(`/${noteId}`, config);
+    setNotes(
+      notes.filter((note) => {
+        return note.id !== noteId;
+      })
+    );
   }
 
   // We check if the user is authenticated; if he is not, show a message
   return (
-    <div>
-    {auth.user? (
-      <Fragment>
-        <SearchAppBar
-          name="Notes"
-          handleDrawerToggle={props.handleDrawerToggle}
-        />
+    <Fragment>
+      <SearchAppBar
+        name="Notes"
+        handleDrawerToggle={props.handleDrawerToggle}
+      />
+      {auth.user ? (
         <Grid className={classes.root} container spacing={2}>
           {notes.map((note) => (
-            <Grid item xs={12} sm={6} md={4}>
-              <NoteCard note={note} DeleteNote={DeleteNote} />
+            <Grid item xs={12} sm={6} md={3} key={note.id}>
+              <NoteCard note={note} handleDelete={handleDelete} />
             </Grid>
           ))}
         </Grid>
-      </Fragment>
-    ) : (
-      <Fragment>
-        <SearchAppBar
-          name="Notes"
-          handleDrawerToggle={props.handleDrawerToggle}
-        />
+      ) : (
         <Typography variant="h4" align="center" style={{ padding: "10px" }}>
-          Please Log in to see your notes!
+          Please log in to see your notes!
         </Typography>
-        </Fragment>
       )}
-    </div>
+    </Fragment>
   );
 }

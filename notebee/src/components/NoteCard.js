@@ -17,9 +17,9 @@ export default function NoteCard(props) {
     setNoteOpen(false);
   };
 
-  async function Delete() {
-    props.DeleteNote(props.note);
-  }
+  const handleInputDelete = () => {
+    props.handleDelete(props.note.id);
+  };
 
   // The notes are showed in a card, from material-ui: https://material-ui.com/components/cards/
   return (
@@ -29,9 +29,6 @@ export default function NoteCard(props) {
           <Typography variant="h5">{props.note.title}</Typography>
           <Typography variant="subtitle1" color="textSecondary" gutterBottom>
             {props.note.subjectName}
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
-            Contents: {props.note.contents}
           </Typography>
           <Typography variant="body2" color="textSecondary">
             Keywords: {props.note.keywords}
@@ -47,7 +44,7 @@ export default function NoteCard(props) {
           <Button size="small" color="primary">
             Share
           </Button>
-          <Button size="small" color="primary" onClick={Delete}>
+          <Button size="small" color="primary" onClick={handleInputDelete}>
             Delete
           </Button>
         </CardActions>
