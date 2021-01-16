@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { AppBar, Toolbar, IconButton, Typography } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
@@ -19,6 +19,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchAppBar(props) {
   const classes = useStyles();
+  const [searchValue, setSearchValue] = useState("");
+  const handleChange = (newValue) => {
+    setSearchValue(newValue);
+    props.handleSearchBarChange(newValue);
+  };
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -34,7 +40,11 @@ export default function SearchAppBar(props) {
         <Typography className={classes.title} variant="h6" noWrap>
           {props.name}
         </Typography>
-        <SearchBar />
+        <SearchBar
+          placeholder="Search keywords or tags..."
+          value={searchValue}
+          onChange={handleChange}
+        />
       </Toolbar>
     </AppBar>
   );

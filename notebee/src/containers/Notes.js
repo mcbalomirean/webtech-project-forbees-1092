@@ -27,6 +27,7 @@ export default function Notes(props) {
   const auth = useAuth();
   const classes = useStyles();
   const [notes, setNotes] = useState([]);
+  const [filteredNotes, setFilteredNotes] = useState([]);
 
   // Load notes from db
   useEffect(() => {
@@ -45,20 +46,39 @@ export default function Notes(props) {
     );
   }
 
+  const handleSearchBarChange = (value) => {
+    if (value === "") {
+      setFilteredNotes([]);
+    } else {
+      setFilteredNotes(
+        notes.filter((note) => {
+          return note.keywords.includes(value) || note.tags.includes(value);
+        })
+      );
+    }
+  };
+
   // We check if the user is authenticated; if he is not, show a message
   return (
     <Fragment>
       <SearchAppBar
         name="Notes"
         handleDrawerToggle={props.handleDrawerToggle}
+        handleSearchBarChange={handleSearchBarChange}
       />
       {auth.user ? (
         <Grid className={classes.root} container spacing={2}>
-          {notes.map((note) => (
-            <Grid item xs={12} sm={6} md={3} key={note.id}>
-              <NoteCard note={note} handleDelete={handleDelete} />
-            </Grid>
-          ))}
+          {filteredNotes.length > 0
+            ? filteredNotes.map((note) => (
+                <Grid item xs={12} sm={6} md={3} key={note.id}>
+                  <NoteCard note={note} handleDelete={handleDelete} />
+                </Grid>
+              ))
+            : notes.map((note) => (
+                <Grid item xs={12} sm={6} md={3} key={note.id}>
+                  <NoteCard note={note} handleDelete={handleDelete} />
+                </Grid>
+              ))}
         </Grid>
       ) : (
         <Typography variant="h4" align="center" style={{ padding: "10px" }}>
