@@ -17,12 +17,12 @@ module.exports.findOne = async (req, res) => {
 
 module.exports.findAll = async (req, res) => {
   try {
-    let result = await db.Notes.findAll();
+    let result = await db.Notes.findAll({ where: { studentId: req.user.id } });
 
     if (result) {
       res.status(200).send(result);
     } else {
-      res.status(404).send("Note not found.");
+      res.status(404).send("No notes found.");
     }
   } catch (error) {
     console.log(error);
