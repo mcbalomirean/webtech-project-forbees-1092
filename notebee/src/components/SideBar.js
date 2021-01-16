@@ -60,7 +60,9 @@ export default function SideBar(props) {
 
   const [createGroupOpen, setCreateGroupOpen] = useState(false);
   const handleCreateGroupOpen = () => {
-    setCreateGroupOpen(true);
+    auth.user
+      ? setCreateGroupOpen(true)
+      : handleErrorOpen("You must login before you can create a group");
   };
   const handleCreateGroupClose = () => {
     setCreateGroupOpen(false);
@@ -198,6 +200,7 @@ export default function SideBar(props) {
         handleSuccess={handleSuccessOpen}
         handleError={handleErrorOpen}
       />
+
       <Snackbar
         open={openSuccess}
         autoHideDuration={snackbarDuration}
