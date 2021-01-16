@@ -11,5 +11,6 @@ router.get("/:id/contents", NotesController.getContents);
 router.delete("/:id", NotesController.delete);
 
 router.put("/:id", NotesController.put);
+router.post("/:id/share/:email", NotesController.shareNote);
 
 module.exports = router;

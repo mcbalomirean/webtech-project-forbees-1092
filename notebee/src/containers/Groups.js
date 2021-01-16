@@ -42,7 +42,7 @@ export default function Groups() {
       <br />
       {auth.user ? (
         groups.map((group) => (
-          <GroupCard group={group} id={group.id} DeleteGroup={DeleteGroup} />
+          <GroupCard group={group} DeleteGroup={DeleteGroup} />
         ))
       ) : (
         <Typography variant="h4" align="center" style={{ padding: "10px" }}>
