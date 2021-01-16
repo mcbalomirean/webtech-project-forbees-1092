@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import {
   Button,
@@ -6,8 +6,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Grid,
-  MenuItem,
   TextField,
 } from "@material-ui/core";
 import axios from "axios";

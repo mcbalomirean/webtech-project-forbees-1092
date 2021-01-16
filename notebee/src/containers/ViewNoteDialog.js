@@ -5,7 +5,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Grid,
   Typography,
 } from "@material-ui/core";
 import NoteViewer from "../components/NoteViewer";

@@ -1,14 +1,12 @@
 import React, { useState, useCallback } from "react"; // TODO: add state?
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import CreateGroup from "./CreateGroup";
 import Groups from "./Groups";
 import Notes from "./Notes";
 import NotFound from "../components/NotFound";
 import Sidebar from "../components/SideBar";
 import Welcome from "../components/Welcome";
 import GenericAppBar from "../components/GenericAppBar";
-import SearchAppBar from "../components/SearchAppBar";
 import { ProvideAuth } from "../hooks/useAuth";
 
 const useStyles = makeStyles((theme) => ({
@@ -55,13 +53,6 @@ export default function App() {
                   handleDrawerToggle={handleDrawerToggle}
                 />
                 <Groups />
-              </Route>
-              <Route exact path="/groups/create">
-                <GenericAppBar
-                  name="Create Group"
-                  handleDrawerToggle={handleDrawerToggle}
-                />
-                <CreateGroup />
               </Route>
               <Route exact path="*">
                 <GenericAppBar

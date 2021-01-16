@@ -12,9 +12,7 @@ import {
   Snackbar,
 } from "@material-ui/core";
 import {
-  AccountCircle as AccountCircleIcon,
   GroupAdd as GroupAddIcon,
-  LibraryBooks as LibraryBooksIcon,
   NoteAdd as NoteAddIcon,
   SupervisedUserCircle as SupervisedUserCircleIcon,
   Subject as SubjectIcon,
@@ -22,8 +20,8 @@ import {
 } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
-import GoogleIcon from "./GoogleIcon";
 import { useAuth } from "../hooks/useAuth";
+import GoogleIcon from "./GoogleIcon";
 import CreateNoteDialog from "../containers/CreateNoteDialog";
 import CreateGroupDialog from "../containers/CreateGroupDialog";
 
