@@ -7,43 +7,51 @@ import { useAuth } from "../hooks/useAuth";
 import { Typography } from "@material-ui/core";
 
 export default function CreateGroup() {
-  const auth = useAuth();
+  //Sets the base URL for requests
   const API = process.env.REACT_APP_API_BASEURL;
+  //Used in order to use its hook to see if the user is logged in or not
+  const auth = useAuth();
+  //Configuration in order to use users' credentials
   const config = {
     baseURL: `${API}`,
     withCredentials: true,
   };
 
+  //saves all the groups form the database when the page loads
   useEffect(() => {
     axios.get(API + "/groups", config).then((result) => {
       setGroups(result.data);
     });
   }, []);
 
+  //hooks used to store the data
   const [name, setName] = useState("");
   const [groups, setGroups] = useState([]);
 
+  //Function to add a group, receives its name
   async function addButton(event) {
-    await axios.post(API + "/groups/create", { name }, config);
+    await axios.post(API + "/groups/", { name }, config);
 
-    await axios.get(API + "/groups", config).then((result) => {
+    await axios.get(API + "/groups/", config).then((result) => {
       setGroups(result.data);
     });
   }
 
+  //Function to delete a group by its id
   async function DeleteGroup(group) {
     const id = group.id;
     await axios.delete(API + "/groups/" + id, config);
-    // setIsDeleted(true);
     await axios.get(API + "/groups", config).then((result) => {
       setGroups(result.data);
     });
   }
 
+  //Function which sets the variable to the input everytime it changes
   function handleNameChange(event) {
     setName(event.target.value);
   }
 
+  //what is shown on the page, which depends if the user is logged in or not
   return (
     <div>
       {auth.user ? (

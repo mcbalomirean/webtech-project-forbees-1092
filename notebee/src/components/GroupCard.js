@@ -6,14 +6,9 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
-
 import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 
+//styles
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -31,57 +26,78 @@ const useStyles = makeStyles({
   },
 });
 
+//Sets the base URL for requests
 const API = process.env.REACT_APP_API_BASEURL;
+//Configuration in order to use users' credentials
 const config = {
   baseURL: `${API}`,
   withCredentials: true,
 };
 
+//GroupCard = Container for groups
 export default function GroupCard(props) {
   const classes = useStyles();
+  //hook to store the students
   const [students, setStudents] = useState([]);
+
+  //hooks to handle state of pressed buttons
   const [isOpen, setIsOpen] = useState(false);
-  //this is for add button
-  const [open, setOpen] = React.useState(false);
-  const [removeOpen, setRemoveOpen] = React.useState(false);
+  const [addOpen, setAddOpen] = useState(false);
+  const [removeOpen, setRemoveOpen] = useState(false);
+
+  //hook which keeps the input from the text fields
   const [name, setName] = useState("");
 
+  //Function used to display all the students from a group
   const DisplayStudents = () => {
     const id = props.group.id;
-    axios.get(API + "/groups/members/" + id).then((result) => {
+    axios.get(API + "/groups/" + id + "/members").then((result) => {
       setStudents(result.data.students);
     });
     setIsOpen(!isOpen);
     if (isOpen == false) setStudents([]);
   };
 
+  //Deletes a group
   async function Delete() {
     props.DeleteGroup(props.group);
   }
 
+  //Function which sets the variable to the input everytime it changes
   function handleNameChange(event) {
     setName(event.target.value);
   }
 
-  async function addStudent(event) {
-    setOpen(!open);
-    const id = props.group.id;
-    await axios.post(API + "/groups/add", { email: name, groupId: id }, config);
+  //Functions to handle the buttons' presses, to show/hide the content
+  function handleAdd() {
+    setAddOpen(!addOpen);
+  }
+  function handleRemove() {
+    setRemoveOpen(!removeOpen);
   }
 
-  async function removeStudent(event) {
+  //Adds a student to a group by the groups' id and the text field input
+  async function addStudent() {
+    setAddOpen(!addOpen);
+    const id = props.group.id;
+    await axios.post(API + "/groups/" + id + "/members/" + name, config);
+  }
+
+  //Removes a student from a group by the groups' id and the text field input
+  async function removeStudent() {
     setRemoveOpen(!removeOpen);
     const id = props.group.id;
-    await axios.delete(API + "/groups/remove/" + name, { groupId: id }, config);
+    await axios.delete(API + "/groups/" + id + "/members/" + name, config);
   }
 
+  //Function for displaying the text field and button to add a student to a grpup
   function AddForm() {
     return (
       <form style={{ padding: "10px" }}>
         <br />
         <TextField
           id="outlined-basic"
-          label="Group name"
+          label="Student Name"
           variant="outlined"
           size="small"
           onChange={handleNameChange}
@@ -101,13 +117,15 @@ export default function GroupCard(props) {
     );
   }
 
+  //Function for displaying the text field and
+  //button to remove a student from a group
   function RemoveForm() {
     return (
       <form style={{ padding: "10px" }}>
         <br />
         <TextField
           id="outlined-basic"
-          label="Group name"
+          label="Student Name"
           variant="outlined"
           size="small"
           onChange={handleNameChange}
@@ -127,28 +145,30 @@ export default function GroupCard(props) {
     );
   }
 
+  //What is shown on the page
   return (
     <div style={{ padding: "10px" }}>
       <Card className={classes.root}>
         <CardContent>
           <Typography variant="h5" component="h2">
-            Group: {props.group.name}
+            {props.group.name}
             <br />
           </Typography>
         </CardContent>
         <CardActions>
           <Button size="small" onClick={DisplayStudents}>
-            See group members
-          </Button>
-          <Button size="small" onClick={Delete}>
-            Delete Group
-          </Button>
-          <Button size="small" onClick={addStudent}>
-            Add student
+            View members
           </Button>
 
-          <Button size="small" onClick={removeStudent}>
-            Remove student
+          <Button size="small" onClick={handleAdd}>
+            Add
+          </Button>
+
+          <Button size="small" onClick={handleRemove}>
+            Remove
+          </Button>
+          <Button size="small" onClick={Delete}>
+            Delete
           </Button>
         </CardActions>
         {isOpen ? (
@@ -162,7 +182,7 @@ export default function GroupCard(props) {
           <Typography> </Typography>
         )}
 
-        {open ? AddForm() : <Typography> </Typography>}
+        {addOpen ? AddForm() : <Typography> </Typography>}
         {removeOpen ? RemoveForm() : <Typography> </Typography>}
       </Card>
     </div>

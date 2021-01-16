@@ -1,6 +1,7 @@
 var db = require("../models/Database");
 const Groups = require("../models/Groups");
 
+//finds all the groups the student is in
 module.exports.findAll = (req, res) => {
   db.Groups.findAll({
     include: [
@@ -22,6 +23,7 @@ module.exports.findAll = (req, res) => {
     });
 };
 
+//finds a group by id
 module.exports.findOne = (req, res) => {
   db.Groups.findByPk(req.params.id).then((result) => {
     if (result) {
@@ -32,6 +34,7 @@ module.exports.findOne = (req, res) => {
   });
 };
 
+//creates a group, receives a name and adds the creator as the owner
 module.exports.create = async (req, res) => {
   try {
     let group = await db.Groups.create({
@@ -47,6 +50,7 @@ module.exports.create = async (req, res) => {
   }
 };
 
+//deletes a group by id
 module.exports.delete = async (req, res) => {
   try {
     let result = await db.Groups.destroy({
@@ -61,6 +65,7 @@ module.exports.delete = async (req, res) => {
   }
 };
 
+//finds all the groups' members by its id
 module.exports.findGroupMembers = async (req, res) => {
   db.Groups.findOne({
     include: [
@@ -82,27 +87,13 @@ module.exports.findGroupMembers = async (req, res) => {
     });
 };
 
-//TO DO
-// module.exports.add = async (req, res) => {
-//   try {
-//     let student = await db.Students.findByPk(req.body.studentId);
-//     let group = await db.Groups.findByPk(req.body.groupId);
-//     await group.addStudent(student);
-//     await student.addGroup(group);
-
-//     res.status(201).send(student);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send("Server error");
-//   }
-// };
-
+//Adds a student to a group, by their email
 module.exports.add = async (req, res) => {
   try {
     let student = await db.Students.findOne({
-      where: { email: req.body.email },
+      where: { email: req.params.email },
     });
-    let group = await db.Groups.findByPk(req.body.groupId);
+    let group = await db.Groups.findByPk(req.params.id);
     await group.addStudent(student);
     await student.addGroup(group);
 
@@ -113,39 +104,7 @@ module.exports.add = async (req, res) => {
   }
 };
 
-// module.exports.remove = async (req, res) => {
-//   try {
-//     let student = await db.Students.findOne({
-//       where: { email: req.body.email },
-//     });
-//     let group = await db.Groups.findByPk(req.body.groupId);
-//     await student.removeGroup(group);
-//     await group.removeStudent(student);
-
-//     res.status(201).send(student);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send("Server error");
-//   }
-// };
-
-// module.exports.remove = async (req, res) => {
-//   try {
-//     let student = await db.Students.findOne({
-//       where: { email: req.body.email },
-//     });
-//     let result = await db.GroupMembers.destroy({
-//       where: {
-//         studentId: student.id,
-//       },
-//     });
-//     res.status(200).send("deleted");
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send("Server error.");
-//   }
-// };
-
+//Removes a student from a group by their email
 module.exports.remove = async (req, res) => {
   try {
     let student = await db.Students.findOne({
@@ -154,7 +113,7 @@ module.exports.remove = async (req, res) => {
     let result = await db.GroupMembers.destroy({
       where: {
         studentId: student.id,
-        groupId: req.body.groupId,
+        groupId: req.params.id,
       },
     });
     res.status(200).send("deleted");

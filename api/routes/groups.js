@@ -4,12 +4,12 @@ const GroupsController = require("../controllers/GroupsController");
 
 router.get("/", GroupsController.findAll);
 router.get("/:id", GroupsController.findOne);
-router.get("/members/:id", GroupsController.findGroupMembers);
-// router.get('/:id/groupMembers', GroupsController.findGroupMembers) // TODO: doesn't exist in the controller, throws error!
+router.get("/:id/members", GroupsController.findGroupMembers);
 
-router.post("/create", GroupsController.create);
-router.post("/add/", GroupsController.add);
+router.post("/", GroupsController.create);
+router.post("/:id/members/:email", GroupsController.add);
+
 router.delete("/:id", GroupsController.delete);
-router.delete("/remove/:email", GroupsController.remove);
+router.delete("/:id/members/:email", GroupsController.remove);
 
 module.exports = router;
