@@ -19,10 +19,9 @@ module.exports.findOne = async (req, res) => {
 // GET /notes/:id/contents
 module.exports.getContents = async (req, res) => {
   try {
-    let result = await db.Notes.findByPk(req.params.id,
-      {
-        attributes: ['contents']
-      });
+    let result = await db.Notes.findByPk(req.params.id, {
+      attributes: ["contents"],
+    });
     if (result) {
       res.status(200).send(result);
     } else {
@@ -38,7 +37,10 @@ module.exports.getContents = async (req, res) => {
 // GET /notes/
 module.exports.findAll = async (req, res) => {
   try {
-    let result = await db.Notes.findAll({ where: { studentId: req.user.id }, attributes: { exclude: ['contents'] }});
+    let result = await db.Notes.findAll({
+      where: { studentId: req.user.id },
+      attributes: { exclude: ["contents"] },
+    });
 
     if (result) {
       res.status(200).send(result);

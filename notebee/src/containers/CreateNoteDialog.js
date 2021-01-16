@@ -15,7 +15,6 @@ const maxLength = 2 ** 16 - 1;
 const rows = 16;
 
 const API = process.env.REACT_APP_API_BASEURL;
-
 const config = {
   baseURL: `${API}`,
   withCredentials: true,
@@ -70,7 +69,6 @@ export default function CreateNoteDialog(props) {
 
       await axios.post(`${API}/notes/`, form, config);
       props.handleSuccess("Note added successfully!");
-      setForm(initialFormState);
       props.handleClose();
     } catch (error) {
       props.handleError(error.message);
@@ -78,14 +76,18 @@ export default function CreateNoteDialog(props) {
   };
 
   const handleInputCancel = () => {
-    setForm(initialFormState);
     props.handleClose();
+  };
+
+  const unloadForm = () => {
+    setForm(initialFormState);
   };
 
   return (
     <Dialog
       open={props.open}
       onClose={handleInputCancel}
+      onExited={unloadForm}
       aria-label="Create Note"
     >
       <DialogTitle>Create Note</DialogTitle>

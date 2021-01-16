@@ -87,8 +87,7 @@ export default function SideBar(props) {
 
   const drawerContents = (
     <Fragment>
-      <div className={classes.toolbar} />{" "}
-      {/* TODO: investigate this leftover thing ^ */}
+      <div className={classes.toolbar} />
       {/* This adds an offset of the size of the toolbar for aesthetic reasons, before the drawer contents. */}
       <Divider />
       <List>

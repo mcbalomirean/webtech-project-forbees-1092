@@ -18,6 +18,7 @@ const config = {
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(1, 1, 1, 1),
+    width: "auto",
   },
 }));
 
