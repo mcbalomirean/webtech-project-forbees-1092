@@ -52,7 +52,9 @@ export default function SideBar(props) {
 
   const [createNoteOpen, setCreateNoteOpen] = useState(false);
   const handleCreateNoteOpen = () => {
-    setCreateNoteOpen(true);
+    auth.user
+      ? setCreateNoteOpen(true)
+      : handleErrorOpen("You must login before you can add notes!");
   };
   const handleCreateNoteClose = () => {
     setCreateNoteOpen(false);
@@ -126,18 +128,18 @@ export default function SideBar(props) {
         </ListItem>
         <ListItem button onClick={handleCreateGroupOpen}>
           <ListItemIcon>
-            <GroupAddIcon />
+            <SubjectIcon />
           </ListItemIcon>
-          <ListItemText primary="Create Group" />
+          <ListItemText primary="Notes" />
         </ListItem>
       </List>
       <Divider />
       <List>
-        <ListItem button>
+        <ListItem button component={RouteLink} to="/groups/create">
           <ListItemIcon>
-            <AccountCircleIcon />
+            <GroupAddIcon />
           </ListItemIcon>
-          <ListItemText primary="Profile" />
+          <ListItemText primary="Create Group" />
         </ListItem>
         <ListItem button component={RouteLink} to="/groups">
           <ListItemIcon>
@@ -147,20 +149,7 @@ export default function SideBar(props) {
         </ListItem>
       </List>
       <Divider />
-      <List>
-        <ListItem button component={RouteLink} to="/notes">
-          <ListItemIcon>
-            <SubjectIcon />
-          </ListItemIcon>
-          <ListItemText primary="Notes" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <LibraryBooksIcon />
-          </ListItemIcon>
-          <ListItemText primary="Notebook" />
-        </ListItem>
-      </List>
+
       <Divider />
     </Fragment>
   );
