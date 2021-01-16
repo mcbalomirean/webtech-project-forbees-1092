@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import {
   Button,
@@ -30,24 +30,11 @@ const initialFormState = {
 
 export default function CreateNoteDialog(props) {
   const [subjects, setSubjects] = useState([]);
-  useEffect(() => {
-    // There is a reason we are using an arrow function encapsulated into a variable:
-    // useEffect asks for a function as a first parameter, and
-    // if that function returns anything, it uses that return as a clean-up procedure.
-    // Since async methods always return a promise, it would always return a
-    // clean-up procedure, which... doesn't work. And is also superfluous.
-    // So, we take our function, put it into a variable, then call it that way.
-    // This avoids that problem and also lets us use a separate clean-up function
-    // if desired.
-    const loadSubjects = async () => {
-      let results = await axios.get(`subjects/names`, config);
-      let subjects = results.data.map((subject) => subject.name);
-      setSubjects(subjects);
-    };
-
-    loadSubjects();
-  }, []);
-
+  const loadSubjects = async () => {
+    let results = await axios.get(`subjects/names`, config);
+    let subjects = results.data.map((subject) => subject.name);
+    setSubjects(subjects);
+  };
   // TODO: consolidate state?
   const [form, setForm] = useState(initialFormState);
 
@@ -80,6 +67,7 @@ export default function CreateNoteDialog(props) {
   };
 
   const loadForm = async () => {
+    loadSubjects();
     let result = await axios.get(`notes/${props.note.id}/contents`, config);
     setForm((prevState) => ({
       ...prevState,
