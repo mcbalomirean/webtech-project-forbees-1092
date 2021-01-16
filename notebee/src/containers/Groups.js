@@ -34,17 +34,13 @@ export default function Groups() {
   return (
     <div>
       {auth.user ? (
-        <h1>My groups</h1>
-      ) : (
-        <h1>Please Log In to see your groups!</h1>
-      )}
-
-      {auth.user ? (
         groups.map((group) => (
           <GroupCard group={group} id={group.id} DeleteGroup={DeleteGroup} />
         ))
       ) : (
-        <Typography variant="h4" align="center"></Typography>
+        <Typography variant="h4" align="center" style={{ padding: "10px" }}>
+          Please Log in to see your groups!
+        </Typography>
       )}
     </div>
   );

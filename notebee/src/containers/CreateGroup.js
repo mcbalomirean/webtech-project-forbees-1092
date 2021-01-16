@@ -80,7 +80,9 @@ export default function CreateGroup() {
           <GroupCard group={group} id={group.id} DeleteGroup={DeleteGroup} />
         ))
       ) : (
-        <h1>Please Log In to create a group!</h1>
+        <Typography variant="h4" align="center" style={{ padding: "10px" }}>
+          Please Log in to create your groups!
+        </Typography>
       )}
     </div>
   );
