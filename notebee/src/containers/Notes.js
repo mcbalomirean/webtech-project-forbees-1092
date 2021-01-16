@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import SearchAppBar from "../components/SearchAppBar";
 import NoteCard from "../components/NoteCard";
 
 const API = process.env.REACT_APP_API_BASEURL;
@@ -10,7 +11,14 @@ const config = {
   withCredentials: true,
 };
 
-export default function Notes() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: theme.spacing(1, 1, 1, 1),
+  },
+}));
+
+export default function Notes(props) {
+  const classes = useStyles();
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
@@ -20,16 +28,18 @@ export default function Notes() {
   }, []);
 
   return (
-    <div>
-      <h1>My notes</h1>
-
-      <Grid container spacing={4}>
+    <Fragment>
+      <SearchAppBar
+        name="Notes"
+        handleDrawerToggle={props.handleDrawerToggle}
+      />
+      <Grid className={classes.root} container spacing={2}>
         {notes.map((note) => (
           <Grid item xs={12} sm={6} md={4}>
             <NoteCard note={note} />
           </Grid>
         ))}
       </Grid>
-    </div>
+    </Fragment>
   );
 }

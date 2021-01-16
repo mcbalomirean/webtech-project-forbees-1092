@@ -8,6 +8,7 @@ import NotFound from "../components/NotFound";
 import Sidebar from "../components/SideBar";
 import Welcome from "../components/Welcome";
 import GenericAppBar from "../components/GenericAppBar";
+import SearchAppBar from "../components/SearchAppBar";
 import { ProvideAuth } from "../hooks/useAuth";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,11 +47,7 @@ export default function App() {
                 <Welcome />
               </Route>
               <Route exact path="/notes">
-                <GenericAppBar
-                  name="Notes"
-                  handleDrawerToggle={handleDrawerToggle}
-                />
-                <Notes />
+                <Notes handleDrawerToggle={handleDrawerToggle} />
               </Route>
               <Route exact path="/groups">
                 <GenericAppBar
