@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Typography } from "@material-ui/core";
 import { useAuth } from "../hooks/useAuth";
-
+/*Welcome page, checks if the user is logged in and displays the appropiate message. */
 export default function Welcome() {
   const auth = useAuth();
   return (
@@ -10,14 +10,23 @@ export default function Welcome() {
         Welcome to NoteBee!
       </Typography>
       {auth.user ? (
-        <Typography variant="h4" align="center">
-          You're logged in! Congratulations!
-        </Typography>
+        <div>
+          <Typography variant="h4" align="center">
+            You're logged in,
+          </Typography>
+          <Typography variant="h4" align="center">
+            feel free to explore!
+          </Typography>
+        </div>
       ) : (
-        <Typography variant="h4" align="center">
-          It seems that you're not logged in. To login, please press the login
-          button in the sidebar!
-        </Typography>
+        <div>
+          <Typography variant="h4" align="center">
+            You're not logged in :(
+          </Typography>
+          <Typography variant="h4" align="center">
+            Please login by pressing the button in the menu!
+          </Typography>
+        </div>
       )}
     </Fragment>
   );
