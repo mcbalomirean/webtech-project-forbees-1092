@@ -22,8 +22,7 @@ import { useAuth } from "../hooks/useAuth";
 import GoogleIcon from "./GoogleIcon";
 import CreateNoteDialog from "../containers/CreateNoteDialog";
 import CreateGroupDialog from "../containers/CreateGroupDialog";
-
-const API = process.env.REACT_APP_API_BASEURL;
+import { API } from "../util/constants";
 
 const drawerWidth = 200;
 

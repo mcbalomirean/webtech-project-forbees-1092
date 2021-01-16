@@ -27,37 +27,40 @@ export default function App() {
   const classes = useStyles();
 
   const [mobileOpen, setMobileOpen] = useState(false);
+  // We use useCallback so that this function isn't constantly passed in as a prop.
+  // Should we not use useCallback, functions would be passed on each render, triggering re-renders
+  // of all children in turn. We don't want that.
   const handleDrawerToggle = useCallback(() => {
     setMobileOpen(!mobileOpen);
   }, [mobileOpen]);
 
   const [successMessage, setSuccessMessage] = useState("");
   const [openSuccess, setOpenSuccess] = useState(false);
-  const handleSuccessOpen = (message) => {
+  const handleSuccessOpen = useCallback((message) => {
     setSuccessMessage(message);
     setOpenSuccess(true);
-  };
-  const handleSuccessClose = (event, reason) => {
+  }, []);
+  const handleSuccessClose = useCallback((event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
     setOpenSuccess(false);
-  };
+  }, []);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [openError, setOpenError] = useState(false);
-  const handleErrorOpen = (message) => {
+  const handleErrorOpen = useCallback((message) => {
     setErrorMessage(message);
     setOpenError(true);
-  };
-  const handleErrorClose = (event, reason) => {
+  }, []);
+  const handleErrorClose = useCallback((event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
     setOpenError(false);
-  };
+  }, []);
 
   return (
     <ProvideAuth>
