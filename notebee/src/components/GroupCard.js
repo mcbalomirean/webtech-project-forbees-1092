@@ -1,23 +1,20 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import axios from "axios";
-import TextField from "@material-ui/core/TextField";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  TextField,
+  Typography,
+} from "@material-ui/core";
+import { API } from "../util/constants";
 
 //styles
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
   },
   title: {
     fontSize: 14,
@@ -27,11 +24,9 @@ const useStyles = makeStyles({
   },
 });
 
-//Sets the base URL for requests
-const API = process.env.REACT_APP_API_BASEURL;
 //Configuration in order to use users' credentials
 const config = {
-  baseURL: `${API}`,
+  baseURL: `${API}/groups`,
   withCredentials: true,
 };
 
@@ -52,17 +47,17 @@ export default function GroupCard(props) {
   //Function used to display all the students from a group
   const DisplayStudents = () => {
     const id = props.group.id;
-    axios.get(API + "/groups/" + id + "/members").then((result) => {
+    axios.get("/" + id + "/members", config).then((result) => {
       setStudents(result.data.students);
     });
     setIsOpen(!isOpen);
-    if (isOpen == false) setStudents([]);
+    if (isOpen === false) setStudents([]);
   };
 
   //Deletes a group
-  async function Delete() {
-    props.DeleteGroup(props.group);
-  }
+  const handleInputDelete = () => {
+    props.handleDelete(props.group.id);
+  };
 
   //Function which sets the variable to the input everytime it changes
   function handleNameChange(event) {
@@ -81,14 +76,14 @@ export default function GroupCard(props) {
   async function addStudent() {
     setAddOpen(!addOpen);
     const id = props.group.id;
-    await axios.post(API + "/groups/" + id + "/members/" + name, config);
+    await axios.post("/" + id + "/members/" + name, config);
   }
 
   //Removes a student from a group by the groups' id and the text field input
   async function removeStudent() {
     setRemoveOpen(!removeOpen);
     const id = props.group.id;
-    await axios.delete(API + "/groups/" + id + "/members/" + name, config);
+    await axios.delete("/" + id + "/members/" + name, config);
   }
 
   //Function for displaying the text field and button to add a student to a grpup
@@ -168,18 +163,7 @@ export default function GroupCard(props) {
           <Button size="small" onClick={handleRemove} color="primary">
             Remove
           </Button>
-          <Button
-            // style={{
-            //   borderRadius: 5,
-            //   backgroundColor: "#de403a",
-            // }}
-            size="small"
-            onClick={Delete}
-            style={{
-              color: "red",
-            }}
-            // startIcon={<DeleteIcon />}
-          >
+          <Button color="secondary" size="small" onClick={handleInputDelete}>
             Delete
           </Button>
         </CardActions>
