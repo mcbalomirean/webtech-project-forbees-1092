@@ -14,13 +14,13 @@ const config = {
   withCredentials: true,
 };
 
-
+// Delete note function...
 export default function NoteCard(props) {
-
   async function Delete() {
     props.DeleteNote(props.note);
   }
 
+// The notes are showed in a card, from material-ui: https://material-ui.com/components/cards/
   return (
     <Card>
       <CardContent>
@@ -45,9 +45,6 @@ export default function NoteCard(props) {
         <Button size="small" color="primary">
           Share
         </Button>
-        {/* <Button size="small" color="primary">
-          Edit
-        </Button> */}
         <Button size="small" color="primary" onClick={Delete}>
           Delete
         </Button>

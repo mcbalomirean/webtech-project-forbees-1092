@@ -38,7 +38,9 @@ export default function Notes(props) {
     });
   }
 
+
   return (
+    //we check if the user is authenticated; if he is not, show a message
     <div>
     {auth.user? (
       <Fragment>

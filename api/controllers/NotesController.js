@@ -15,9 +15,28 @@ module.exports.findOne = async (req, res) => {
   }
 };
 
+// get content, separately from the rest of the attributes for optimization reasons
+module.exports.getContents = async (req, res) => {
+  try {
+    let result = await db.Notes.findByPk(req.params.id,
+      {
+        attributes: ['contents']
+      });
+    if (result) {
+      res.status(200).send(result);
+    } else {
+      res.status(404).send("Content not found.");
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error.");
+  }
+};
+
+// for reasons of optimization, we excluded the contents from the findAll method in order to give access to this only on request
 module.exports.findAll = async (req, res) => {
   try {
-    let result = await db.Notes.findAll({ where: { studentId: req.user.id } });
+    let result = await db.Notes.findAll({ where: { studentId: req.user.id }, attributes: { exclude: ['contents'] }});
 
     if (result) {
       res.status(200).send(result);
