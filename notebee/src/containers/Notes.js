@@ -46,6 +46,11 @@ export default function Notes(props) {
     );
   }
 
+  async function handleUpdate() {
+    let results = await axios.get("/", config);
+    setNotes(results.data);
+  }
+
   const handleSearchBarChange = (value) => {
     if (value === "") {
       setFilteredNotes([]);
@@ -71,12 +76,24 @@ export default function Notes(props) {
           {filteredNotes.length > 0
             ? filteredNotes.map((note) => (
                 <Grid item xs={12} sm={6} md={3} key={note.id}>
-                  <NoteCard note={note} handleDelete={handleDelete} />
+                  <NoteCard
+                    note={note}
+                    handleDelete={handleDelete}
+                    handleUpdate={handleUpdate}
+                    handleSuccess={props.handleSuccess}
+                    handleError={props.handleError}
+                  />
                 </Grid>
               ))
             : notes.map((note) => (
                 <Grid item xs={12} sm={6} md={3} key={note.id}>
-                  <NoteCard note={note} handleDelete={handleDelete} />
+                  <NoteCard
+                    note={note}
+                    handleDelete={handleDelete}
+                    handleUpdate={handleUpdate}
+                    handleSuccess={props.handleSuccess}
+                    handleError={props.handleError}
+                  />
                 </Grid>
               ))}
         </Grid>

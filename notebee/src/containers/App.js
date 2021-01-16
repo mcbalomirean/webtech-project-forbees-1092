@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from "react"; // TODO: add state?
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Snackbar } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import Groups from "./Groups";
 import Notes from "./Notes";
@@ -8,6 +10,8 @@ import Sidebar from "../components/SideBar";
 import Welcome from "../components/Welcome";
 import GenericAppBar from "../components/GenericAppBar";
 import { ProvideAuth } from "../hooks/useAuth";
+
+const snackbarDuration = 5000;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +31,34 @@ export default function App() {
     setMobileOpen(!mobileOpen);
   }, [mobileOpen]);
 
+  const [successMessage, setSuccessMessage] = useState("");
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const handleSuccessOpen = (message) => {
+    setSuccessMessage(message);
+    setOpenSuccess(true);
+  };
+  const handleSuccessClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSuccess(false);
+  };
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const [openError, setOpenError] = useState(false);
+  const handleErrorOpen = (message) => {
+    setErrorMessage(message);
+    setOpenError(true);
+  };
+  const handleErrorClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenError(false);
+  };
+
   return (
     <ProvideAuth>
       <Router>
@@ -34,6 +66,8 @@ export default function App() {
           <Sidebar
             mobileOpen={mobileOpen}
             handleDrawerToggle={handleDrawerToggle}
+            handleSuccess={handleSuccessOpen}
+            handleError={handleErrorOpen}
           />
           <main className={classes.content}>
             <Switch>
@@ -45,7 +79,11 @@ export default function App() {
                 <Welcome />
               </Route>
               <Route exact path="/notes">
-                <Notes handleDrawerToggle={handleDrawerToggle} />
+                <Notes
+                  handleDrawerToggle={handleDrawerToggle}
+                  handleSuccess={handleSuccessOpen}
+                  handleError={handleErrorOpen}
+                />
               </Route>
               <Route exact path="/groups">
                 <GenericAppBar
@@ -63,6 +101,28 @@ export default function App() {
               </Route>
             </Switch>
           </main>
+          <Snackbar
+            open={openSuccess}
+            autoHideDuration={snackbarDuration}
+            onClose={handleSuccessClose}
+          >
+            <Alert
+              elevation={6}
+              onClose={handleSuccessClose}
+              severity="success"
+            >
+              {successMessage}
+            </Alert>
+          </Snackbar>
+          <Snackbar
+            open={openError}
+            autoHideDuration={snackbarDuration}
+            onClose={handleErrorClose}
+          >
+            <Alert elevation={6} onClose={handleErrorClose} severity="error">
+              {errorMessage}
+            </Alert>
+          </Snackbar>
         </div>
       </Router>
     </ProvideAuth>

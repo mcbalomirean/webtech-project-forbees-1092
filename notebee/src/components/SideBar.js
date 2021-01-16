@@ -9,7 +9,6 @@ import {
   ListItemIcon,
   ListItemText,
   Link,
-  Snackbar,
 } from "@material-ui/core";
 import {
   GroupAdd as GroupAddIcon,
@@ -18,7 +17,6 @@ import {
   Subject as SubjectIcon,
   ExitToApp as ExitToAppIcon,
 } from "@material-ui/icons";
-import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import { useAuth } from "../hooks/useAuth";
 import GoogleIcon from "./GoogleIcon";
@@ -28,7 +26,6 @@ import CreateGroupDialog from "../containers/CreateGroupDialog";
 const API = process.env.REACT_APP_API_BASEURL;
 
 const drawerWidth = 200;
-const snackbarDuration = 5000;
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -52,7 +49,7 @@ export default function SideBar(props) {
   const handleCreateNoteOpen = () => {
     auth.user
       ? setCreateNoteOpen(true)
-      : handleErrorOpen("You must login before you can add notes!");
+      : props.handleError("You must login before you can add notes!");
   };
   const handleCreateNoteClose = () => {
     setCreateNoteOpen(false);
@@ -62,38 +59,10 @@ export default function SideBar(props) {
   const handleCreateGroupOpen = () => {
     auth.user
       ? setCreateGroupOpen(true)
-      : handleErrorOpen("You must login before you can create a group");
+      : props.handleError("You must login before you can add groups!");
   };
   const handleCreateGroupClose = () => {
     setCreateGroupOpen(false);
-  };
-
-  const [successMessage, setSuccessMessage] = useState("");
-  const [openSuccess, setOpenSuccess] = useState(false);
-  const handleSuccessOpen = (message) => {
-    setSuccessMessage(message);
-    setOpenSuccess(true);
-  };
-  const handleSuccessClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpenSuccess(false);
-  };
-
-  const [errorMessage, setErrorMessage] = useState("");
-  const [openError, setOpenError] = useState(false);
-  const handleErrorOpen = (message) => {
-    setErrorMessage(message);
-    setOpenError(true);
-  };
-  const handleErrorClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpenError(false);
   };
 
   const drawerContents = (
@@ -191,34 +160,15 @@ export default function SideBar(props) {
       <CreateNoteDialog
         open={createNoteOpen}
         handleClose={handleCreateNoteClose}
-        handleSuccess={handleSuccessOpen}
-        handleError={handleErrorOpen}
+        handleSuccess={props.handleSuccess}
+        handleError={props.handleError}
       />
       <CreateGroupDialog
         open={createGroupOpen}
         handleClose={handleCreateGroupClose}
-        handleSuccess={handleSuccessOpen}
-        handleError={handleErrorOpen}
+        handleSuccess={props.handleSuccess}
+        handleError={props.handleError}
       />
-
-      <Snackbar
-        open={openSuccess}
-        autoHideDuration={snackbarDuration}
-        onClose={handleSuccessClose}
-      >
-        <Alert elevation={6} onClose={handleSuccessClose} severity="success">
-          {successMessage}
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={openError}
-        autoHideDuration={snackbarDuration}
-        onClose={handleErrorClose}
-      >
-        <Alert elevation={6} onClose={handleErrorClose} severity="error">
-          {errorMessage}
-        </Alert>
-      </Snackbar>
     </nav>
   );
 }

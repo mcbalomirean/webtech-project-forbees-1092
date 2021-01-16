@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useHistory } from "react-router";
 import {
   Button,
   Dialog,
@@ -17,7 +16,7 @@ const maxLength = 2 ** 16 - 1;
 const rows = 16;
 
 const config = {
-  baseURL: `${API}/subjects`,
+  baseURL: `${API}/`,
   withCredentials: true,
 };
 
@@ -30,8 +29,6 @@ const initialFormState = {
 };
 
 export default function CreateNoteDialog(props) {
-  const history = useHistory();
-
   const [subjects, setSubjects] = useState([]);
   useEffect(() => {
     // There is a reason we are using an arrow function encapsulated into a variable:
@@ -43,7 +40,7 @@ export default function CreateNoteDialog(props) {
     // This avoids that problem and also lets us use a separate clean-up function
     // if desired.
     const loadSubjects = async () => {
-      let results = await axios.get(`/names`, config);
+      let results = await axios.get(`subjects/names`, config);
       let subjects = results.data.map((subject) => subject.name);
       setSubjects(subjects);
     };
@@ -70,22 +67,28 @@ export default function CreateNoteDialog(props) {
         throw new Error("Contents too long!");
       }
 
-      await axios.post(`${API}/notes/`, form, config);
-      props.handleSuccess("Note added successfully!");
-
-      // If we're currently viewing our notes, we reload the page so we reload the notes.
-      if (history.location.pathname === "/notes") {
-        history.go(0);
-      }
-
-      props.handleClose();
+      await axios.put(`notes/${props.note.id}`, form, config);
+      props.handleSuccess("Note edited successfully!");
+      props.handleClose(true);
     } catch (error) {
       props.handleError(error.message);
     }
   };
 
   const handleInputCancel = () => {
-    props.handleClose();
+    props.handleClose(false);
+  };
+
+  const loadForm = async () => {
+    let result = await axios.get(`notes/${props.note.id}/contents`, config);
+    setForm((prevState) => ({
+      ...prevState,
+      title: props.note.title,
+      subject: props.note.subjectName,
+      contents: result.data.contents,
+      keywords: props.note.keywords,
+      tags: props.note.tags,
+    }));
   };
 
   const unloadForm = () => {
@@ -96,10 +99,11 @@ export default function CreateNoteDialog(props) {
     <Dialog
       open={props.open}
       onClose={handleInputCancel}
+      onEnter={loadForm}
       onExited={unloadForm}
-      aria-label="Create Note"
+      aria-label="Edit Note"
     >
-      <DialogTitle>Create Note</DialogTitle>
+      <DialogTitle>Edit Note</DialogTitle>
       <DialogContent>
         <Grid container component="form" autoComplete="off" spacing={2}>
           <Grid item xs={12}>

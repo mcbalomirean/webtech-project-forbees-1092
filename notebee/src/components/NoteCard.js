@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import ViewNoteDialog from "../containers/ViewNoteDialog";
+import EditNoteDialog from "../containers/EditNoteDialog";
 
 export default function NoteCard(props) {
   const [noteOpen, setNoteOpen] = useState(false);
@@ -15,6 +16,17 @@ export default function NoteCard(props) {
   };
   const handleNoteClose = () => {
     setNoteOpen(false);
+  };
+  const [editOpen, setEditOpen] = useState(false);
+  const handleEditOpen = () => {
+    setEditOpen(true);
+  };
+  const handleEditClose = (edited) => {
+    if (edited) {
+      props.handleUpdate();
+    }
+
+    setEditOpen(false);
   };
 
   const handleInputDelete = () => {
@@ -41,6 +53,9 @@ export default function NoteCard(props) {
           <Button size="small" color="primary" onClick={handleNoteOpen}>
             View
           </Button>
+          <Button size="small" color="primary" onClick={handleEditOpen}>
+            Edit
+          </Button>
           <Button size="small" color="primary">
             Share
           </Button>
@@ -53,6 +68,13 @@ export default function NoteCard(props) {
         open={noteOpen}
         handleClose={handleNoteClose}
         note={props.note}
+      />
+      <EditNoteDialog
+        open={editOpen}
+        handleClose={handleEditClose}
+        note={props.note}
+        handleSuccess={props.handleSuccess}
+        handleError={props.handleError}
       />
     </Fragment>
   );
