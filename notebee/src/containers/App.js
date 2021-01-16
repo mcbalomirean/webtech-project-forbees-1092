@@ -1,20 +1,18 @@
 import React, { useState, useCallback } from "react"; // TODO: add state?
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import MainAppBar from "../components/MainAppBar";
-import MainView from "./MainView";
+import CreateGroup from "./CreateGroup";
+import Groups from "./Groups";
+import Notes from "./Notes";
+import NotFound from "../components/NotFound";
 import Sidebar from "../components/SideBar";
+import Welcome from "../components/Welcome";
+import GenericAppBar from "../components/GenericAppBar";
 import { ProvideAuth } from "../hooks/useAuth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-  },
-  drawerButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up("sm")]: {
-      display: "none",
-    },
   },
   toolbar: theme.mixins.toolbar, // TODO: maybe use this for a sticky appbar
   content: {
@@ -39,8 +37,43 @@ export default function App() {
             handleDrawerToggle={handleDrawerToggle}
           />
           <main className={classes.content}>
-            <MainAppBar handleDrawerToggle={handleDrawerToggle} />
-            <MainView />
+            <Switch>
+              <Route exact path="/">
+                <GenericAppBar
+                  name="Welcome"
+                  handleDrawerToggle={handleDrawerToggle}
+                />
+                <Welcome />
+              </Route>
+              <Route exact path="/notes">
+                <GenericAppBar
+                  name="Notes"
+                  handleDrawerToggle={handleDrawerToggle}
+                />
+                <Notes />
+              </Route>
+              <Route exact path="/groups">
+                <GenericAppBar
+                  name="Groups"
+                  handleDrawerToggle={handleDrawerToggle}
+                />
+                <Groups />
+              </Route>
+              <Route exact path="/groups/create">
+                <GenericAppBar
+                  name="Create Group"
+                  handleDrawerToggle={handleDrawerToggle}
+                />
+                <CreateGroup />
+              </Route>
+              <Route exact path="*">
+                <GenericAppBar
+                  name="Not Found"
+                  handleDrawerToggle={handleDrawerToggle}
+                />
+                <NotFound />
+              </Route>
+            </Switch>
           </main>
         </div>
       </Router>
