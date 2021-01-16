@@ -109,12 +109,9 @@ module.exports.remove = async (req, res) => {
     let student = await db.Students.findOne({
       where: { email: req.params.email },
     });
-    let result = await db.GroupMembers.destroy({
-      where: {
-        studentId: student.id,
-        groupId: req.params.id,
-      },
-    });
+    let group = await db.Groups.findByPk(req.params.id);
+    await student.removeGroup(group);
+
     res.status(200).send("deleted");
   } catch (error) {
     console.log(error);
