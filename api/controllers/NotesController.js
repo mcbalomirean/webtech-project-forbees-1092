@@ -1,4 +1,4 @@
-var db = require("../models/Database");
+var db = require("../models/database");
 
 // GET /notes/:id
 module.exports.findOne = async (req, res) => {

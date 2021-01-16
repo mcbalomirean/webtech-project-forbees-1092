@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import ViewNoteDialog from "../containers/ViewNoteDialog";
 
-// Delete note function...
 export default function NoteCard(props) {
   const [noteOpen, setNoteOpen] = useState(false);
   const handleNoteOpen = () => {

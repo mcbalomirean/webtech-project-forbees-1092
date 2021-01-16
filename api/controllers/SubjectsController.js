@@ -1,5 +1,4 @@
-const { resource } = require("../app");
-var db = require("../models/Database");
+var db = require("../models/database");
 
 module.exports.findAll = async (req, res) => {
   try {

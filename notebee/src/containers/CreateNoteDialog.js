@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
 import {
   Button,
   Dialog,
@@ -16,7 +17,7 @@ const rows = 16;
 
 const API = process.env.REACT_APP_API_BASEURL;
 const config = {
-  baseURL: `${API}`,
+  baseURL: `${API}/subjects`,
   withCredentials: true,
 };
 
@@ -29,6 +30,8 @@ const initialFormState = {
 };
 
 export default function CreateNoteDialog(props) {
+  const history = useHistory();
+
   const [subjects, setSubjects] = useState([]);
   useEffect(() => {
     // There is a reason we are using an arrow function encapsulated into a variable:
@@ -40,7 +43,7 @@ export default function CreateNoteDialog(props) {
     // This avoids that problem and also lets us use a separate clean-up function
     // if desired.
     const loadSubjects = async () => {
-      let results = await axios.get(`${API}/subjects/names`);
+      let results = await axios.get(`/names`, config);
       let subjects = results.data.map((subject) => subject.name);
       setSubjects(subjects);
     };
@@ -69,6 +72,12 @@ export default function CreateNoteDialog(props) {
 
       await axios.post(`${API}/notes/`, form, config);
       props.handleSuccess("Note added successfully!");
+
+      // If we're currently viewing our notes, we reload the page so we reload the notes.
+      if (history.location.pathname === "/notes") {
+        history.go(0);
+      }
+
       props.handleClose();
     } catch (error) {
       props.handleError(error.message);

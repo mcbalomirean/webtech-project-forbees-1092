@@ -3,7 +3,7 @@ var express = require("express");
 var path = require("path");
 var session = require("express-session");
 var SequelizeStore = require("connect-session-sequelize")(session.Store);
-var db = require("./models/Database");
+var db = require("./models/database");
 var logger = require("morgan");
 var cors = require("cors");
 

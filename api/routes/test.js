@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var db = require("../models/Database");
+var db = require("../models/database");
 var AuthController = require("../controllers/AuthController");
 var NotesController = require("../controllers/NotesController");
 var subjects = require("../data/subjects.json");
