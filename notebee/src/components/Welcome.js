@@ -17,6 +17,15 @@ export default function Welcome() {
           <Typography variant="h4" align="center">
             feel free to explore!
           </Typography>
+          <img
+            src="logo192.png"
+            alt="NoteBee Logo"
+            style={{
+              display: "block",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          ></img>
         </div>
       ) : (
         <div>
@@ -26,6 +35,15 @@ export default function Welcome() {
           <Typography variant="h4" align="center">
             Please login by pressing the button in the menu!
           </Typography>
+          <img
+            src="logo192.png"
+            alt="NoteBee Logo"
+            style={{
+              display: "block",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          ></img>
         </div>
       )}
     </Fragment>

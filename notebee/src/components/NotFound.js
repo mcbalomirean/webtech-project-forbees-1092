@@ -1,4 +1,6 @@
 import { Typography } from "@material-ui/core";
+import "..";
+
 export default function NotFound() {
   return (
     <div>
@@ -8,6 +10,11 @@ export default function NotFound() {
       <Typography variant="h5" align="center">
         The page you're looking for was not found.
       </Typography>
+      <img
+        src="logo192.png"
+        alt="NoteBee Logo"
+        style={{ display: "block", marginLeft: "auto", marginRight: "auto" }}
+      ></img>
     </div>
   );
 }
