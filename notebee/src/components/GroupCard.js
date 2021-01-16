@@ -76,7 +76,7 @@ export default function GroupCard(props) {
   async function addStudent() {
     setAddOpen(!addOpen);
     const id = props.group.id;
-    await axios.post("/" + id + "/members/" + name, config);
+    await axios.post("/" + id + "/members/" + name, null, config);
   }
 
   //Removes a student from a group by the groups' id and the text field input
