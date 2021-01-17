@@ -52,12 +52,15 @@ module.exports.create = async (req, res) => {
 //deletes a group by id
 module.exports.delete = async (req, res) => {
   try {
-    let result = await db.Groups.destroy({
-      where: {
-        id: req.params.id,
-      },
-    });
-    res.status(200).send("deleted");
+    let group = await db.Groups.findByPk(req.params.id);
+    if (req.user.id == group.ownerId) {
+      let result = await db.Groups.destroy({
+        where: {
+          id: req.params.id,
+        },
+      });
+      res.status(200).send("deleted");
+    } else res.status(511).send("You need to log in!");
   } catch (error) {
     console.log(error);
     res.status(500).send("Server error.");
@@ -110,9 +113,11 @@ module.exports.remove = async (req, res) => {
       where: { email: req.params.email },
     });
     let group = await db.Groups.findByPk(req.params.id);
-    await student.removeGroup(group);
+    if (req.user.id == group.ownerId) {
+      await student.removeGroup(group);
 
-    res.status(200).send("deleted");
+      res.status(200).send("deleted");
+    } else res.status(511).send("You need to log in!");
   } catch (error) {
     console.log(error);
     res.status(500).send("Server error.");
