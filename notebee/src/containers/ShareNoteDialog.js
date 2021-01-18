@@ -100,14 +100,14 @@ export default function ShareNoteDialog(props) {
             <TextField
               id="emailField"
               name="email"
-              label="email"
+              label="E-mail"
               aria-label="Student E-mail"
               fullWidth
               value={form.email}
               onChange={handleInputChange}
               error={
                 (form.email === "" && form.groupName === "") ||
-                form.name.length > maxLength
+                form.email.length > maxLength
               }
             />
           </Grid>
@@ -115,8 +115,8 @@ export default function ShareNoteDialog(props) {
           <Grid item xs={12}>
             <TextField
               id="groupField"
-              name="group"
-              label="group"
+              name="groupName"
+              label="Group Name"
               aria-label="Group Name"
               select
               fullWidth
