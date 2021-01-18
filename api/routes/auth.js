@@ -16,13 +16,12 @@ router.get(
 );
 
 //callback route
-//TODO: test redirect, change it
 router.get(
   "/callback",
   authController.passport.authenticate("google", {
     scope: ["profile", "email"],
-    successRedirect: "/auth/redirect",
-    failureRedirect: "/auth/login",
+    successRedirect: "redirect",
+    failureRedirect: "login",
   })
 );
 

@@ -1,25 +1,15 @@
 var db = require("../models/database");
 
-//finds all the groups the student is in
-module.exports.findAll = (req, res) => {
-  db.Groups.findAll({
-    include: [
-      {
-        model: db.Students,
-      },
-    ],
-    where: {
-      ownerId: req.user.id,
-    },
-  })
-    .then((results) => {
-      res.status(200).send(results);
-    })
-    .catch(() => {
-      res.status(500).send({
-        status: "error",
-      });
-    });
+//find all the groups a student is in
+module.exports.findAll = async (req, res) => {
+  try {
+    let student = await db.Students.findByPk(req.user.id);
+    let groups = await student.getGroups();
+
+    res.status(200).send(groups);
+  } catch (error) {
+    res.status(500).send("Server error.");
+  }
 };
 
 //finds a group by id

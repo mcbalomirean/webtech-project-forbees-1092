@@ -111,7 +111,7 @@ module.exports.put = async (req, res) => {
     });
 };
 
-module.exports.shareNote = async (req, res) => {
+module.exports.shareNoteWithStudent = async (req, res) => {
   try {
     let student = await db.Students.findOne({
       where: { email: req.params.email },
@@ -126,7 +126,33 @@ module.exports.shareNote = async (req, res) => {
       subjectName: note.subjectName,
     });
 
-    res.status(200).send("Shared");
+    res.status(200).send("Shared.");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error.");
+  }
+};
+
+module.exports.shareNoteWithGroup = async (req, res) => {
+  try {
+    let group = await db.Groups.findOne({
+      where: { name: req.params.name },
+    });
+    let note = await db.Notes.findByPk(req.params.id);
+    let students = await group.getStudents();
+
+    students.forEach((student) => {
+      student.createNote({
+        title: note.title,
+        contents: note.contents,
+        tags: note.tags,
+        keywords: note.keywords,
+        studentId: student.id,
+        subjectName: note.subjectName,
+      });
+    });
+
+    res.status(200).send("Shared.");
   } catch (error) {
     console.log(error);
     res.status(500).send("Server error.");

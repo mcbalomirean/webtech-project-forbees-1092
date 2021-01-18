@@ -13,7 +13,7 @@ var notesRoute = require("./routes/notes");
 var subjectsRoute = require("./routes/subjects");
 var testRoute = require("./routes/test");
 
-var AuthController = require("./controllers/authController");
+var AuthController = require("./controllers/AuthController");
 
 var app = express();
 
@@ -51,11 +51,11 @@ app.use(AuthController.passport.initialize());
 app.use(AuthController.passport.session());
 
 // routing goes here
-app.use("/auth", authRoute);
-app.use("/groups", AuthController.checkAuth, groupsRoute);
-app.use("/notes", AuthController.checkAuth, notesRoute);
-app.use("/subjects", subjectsRoute);
-app.use("/test", testRoute);
+app.use("/api/auth", authRoute);
+app.use("/api/groups", AuthController.checkAuth, groupsRoute);
+app.use("/api/notes", AuthController.checkAuth, notesRoute);
+app.use("/api/subjects", subjectsRoute);
+app.use("/api/test", testRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

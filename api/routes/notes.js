@@ -11,6 +11,7 @@ router.get("/:id/contents", NotesController.getContents);
 router.delete("/:id", NotesController.delete);
 
 router.put("/:id", NotesController.put);
-router.post("/:id/share/:email", NotesController.shareNote);
+router.post("/:id/share/students/:email", NotesController.shareNoteWithStudent);
+router.post("/:id/share/groups/:name", NotesController.shareNoteWithStudent);
 
 module.exports = router;

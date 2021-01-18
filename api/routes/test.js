@@ -4,9 +4,6 @@ var db = require("../models/database");
 var AuthController = require("../controllers/AuthController");
 var NotesController = require("../controllers/NotesController");
 var subjects = require("../data/subjects.json");
-var students = require("../data/sample_students.json");
-var groups = require("../data/sample_groups.json");
-var notes = require("../data/sample_notes.json");
 
 router.get("/api", function (req, res) {
   res.status(200).send("Express API is functional.");
@@ -15,24 +12,7 @@ router.get("/api", function (req, res) {
 router.get("/auth", AuthController.checkAuth, function (req, res) {
   res.status(200).send(req.user);
 });
-router.get("/db/sample", function (req, res) {
-  try {
-    students.map((student) => {
-      db.Students.create(student);
-    });
-    groups.map((group) => {
-      db.Groups.create(group);
-    });
-    notes.map((note) => {
-      db.Notes.create(note);
-    });
 
-    res.status(201).send("Database tables created.");
-  } catch (error) {
-    res.status(500).send("Database tables not created.");
-    console.log(error);
-  }
-});
 router.get("/db/creation", async function (req, res) {
   try {
     await db.sequelize.sync({ force: true });
