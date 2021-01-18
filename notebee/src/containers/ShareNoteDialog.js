@@ -15,7 +15,7 @@ import { API } from "../util/constants";
 const maxLength = 2 ** 8 - 1;
 
 const config = {
-  baseURL: `${API}/groups`,
+  baseURL: `${API}/`,
   withCredentials: true,
 };
 
@@ -44,14 +44,14 @@ export default function ShareNoteDialog(props) {
       }
       if (form.email !== "") {
         await axios.post(
-          `/${props.noteId}/share/students/${form.email}`,
+          `notes/${props.noteId}/share/students/${form.email}`,
           null,
           config
         );
       }
       if (form.groupName !== "") {
         await axios.post(
-          `/${props.noteId}/share/groups/${form.email}`,
+          `notes/${props.noteId}/share/groups/${form.groupName}`,
           null,
           config
         );
@@ -71,7 +71,7 @@ export default function ShareNoteDialog(props) {
 
   const [groups, setGroups] = useState([]);
   const loadGroups = async () => {
-    let results = await axios.get("/", config);
+    let results = await axios.get("groups", config);
     setGroups(
       results.data.map((group) => {
         return group.name;
