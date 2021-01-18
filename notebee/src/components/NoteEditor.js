@@ -9,14 +9,7 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import axios from "axios";
-
-// TODO: export to constants.js file?
-const API = process.env.REACT_APP_API_BASEURL;
-
-const config = {
-  baseURL: `${API}`,
-  withCredentials: true,
-};
+import { API } from "../util/constants";
 
 const rows = 16;
 

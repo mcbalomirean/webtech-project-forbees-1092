@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router";
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  Grid,
+  MenuItem,
   TextField,
 } from "@material-ui/core";
 import { API } from "../util/constants";
@@ -14,17 +15,16 @@ import { API } from "../util/constants";
 const maxLength = 2 ** 8 - 1;
 
 const config = {
-  baseURL: `${API}/notes`,
+  baseURL: `${API}/groups`,
   withCredentials: true,
 };
 
 const initialFormState = {
-  name: "",
+  email: "",
+  groupName: "",
 };
 
 export default function ShareNoteDialog(props) {
-  const history = useHistory();
-
   const [form, setForm] = useState(initialFormState);
 
   const handleInputChange = (event) => {
@@ -34,23 +34,30 @@ export default function ShareNoteDialog(props) {
     }));
   };
 
-  const handleInputSave = async () => {
+  const handleInputShare = async () => {
     try {
-      if (form.name === "") {
-        throw new Error("You must fill in all required fields!");
+      if (form.email === "" && form.groupName === "") {
+        throw new Error("You must fill in one of the fields!");
       }
-      if (form.name.length > maxLength) {
-        throw new Error("Email too long!");
+      if (form.email.length > maxLength) {
+        throw new Error("E-mail too long!");
+      }
+      if (form.email !== "") {
+        await axios.post(
+          `/${props.noteId}/share/students/${form.email}`,
+          null,
+          config
+        );
+      }
+      if (form.groupName !== "") {
+        await axios.post(
+          `/${props.noteId}/share/groups/${form.email}`,
+          null,
+          config
+        );
       }
 
-      await axios.post(`/`, form, config);
       props.handleSuccess("Note shared successfully!");
-
-      //TO CHANGE
-      // If we're currently viewing our notes, we reload the page so we reload the notes.
-      if (history.location.pathname === "/notes") {
-        history.go(0);
-      }
 
       props.handleClose();
     } catch (error) {
@@ -62,36 +69,73 @@ export default function ShareNoteDialog(props) {
     props.handleClose();
   };
 
+  const [groups, setGroups] = useState([]);
+  const loadGroups = async () => {
+    let results = await axios.get("/", config);
+    setGroups(
+      results.data.map((group) => {
+        return group.name;
+      })
+    );
+  };
+
   const unloadForm = () => {
     setForm(initialFormState);
+    setGroups([]);
   };
 
   return (
     <Dialog
       open={props.open}
       onClose={handleInputCancel}
+      onEnter={loadGroups}
       onExited={unloadForm}
       aria-label="Share Note"
     >
       <DialogTitle>Share Note</DialogTitle>
       <DialogContent>
-        <form autoComplete="off">
-          <TextField
-            id="nameField"
-            name="name"
-            label="Name"
-            aria-label="Student Email"
-            required
-            fullWidth
-            value={form.name}
-            onChange={handleInputChange}
-            error={form.name === "" || form.name.length > maxLength}
-          />
-        </form>
+        <Grid container component="form" autoComplete="off" spacing={2}>
+          <Grid item xs={12}>
+            {" "}
+            <TextField
+              id="emailField"
+              name="email"
+              label="email"
+              aria-label="Student E-mail"
+              fullWidth
+              value={form.email}
+              onChange={handleInputChange}
+              error={
+                (form.email === "" && form.groupName === "") ||
+                form.name.length > maxLength
+              }
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              id="groupField"
+              name="group"
+              label="group"
+              aria-label="Group Name"
+              select
+              fullWidth
+              value={form.groupName}
+              onChange={handleInputChange}
+              error={form.groupName === "" && form.email === ""}
+            >
+              {groups.map((group) => (
+                <MenuItem key={group} value={group}>
+                  {group}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+        </Grid>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleInputCancel}>Cancel</Button>
-        <Button onClick={handleInputSave}>Save</Button>
+        <Button onClick={handleInputShare}>Share</Button>
       </DialogActions>
     </Dialog>
   );

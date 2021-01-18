@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import ViewNoteDialog from "../containers/ViewNoteDialog";
 import EditNoteDialog from "../containers/EditNoteDialog";
+import ShareNoteDialog from "../containers/ShareNoteDialog";
 
 export default function NoteCard(props) {
   const [noteOpen, setNoteOpen] = useState(false);
@@ -27,6 +28,14 @@ export default function NoteCard(props) {
     }
 
     setEditOpen(false);
+  };
+
+  const [shareOpen, setShareOpen] = useState(false);
+  const handleShareOpen = () => {
+    setShareOpen(true);
+  };
+  const handleShareClose = () => {
+    setShareOpen(false);
   };
 
   const handleInputDelete = () => {
@@ -56,7 +65,7 @@ export default function NoteCard(props) {
           <Button size="small" color="primary" onClick={handleEditOpen}>
             Edit
           </Button>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" onClick={handleShareOpen}>
             Share
           </Button>
           <Button size="small" color="primary" onClick={handleInputDelete}>
@@ -76,6 +85,13 @@ export default function NoteCard(props) {
         handleSuccess={props.handleSuccess}
         handleError={props.handleError}
       />
+      <ShareNoteDialog
+        open={shareOpen}
+        handleClose={handleShareClose}
+        noteId={props.note.id}
+        handleSuccess={props.handleSuccess}
+        handleError={props.handleError}
+      ></ShareNoteDialog>
     </Fragment>
   );
 }
