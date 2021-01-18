@@ -59,14 +59,14 @@ export default function ShareNoteDialog(props) {
 
       props.handleSuccess("Note shared successfully!");
 
-      props.handleClose();
+      props.handleClose(true);
     } catch (error) {
       props.handleError(error.message);
     }
   };
 
   const handleInputCancel = () => {
-    props.handleClose();
+    props.handleClose(false);
   };
 
   const [groups, setGroups] = useState([]);

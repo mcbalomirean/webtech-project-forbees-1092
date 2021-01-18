@@ -34,7 +34,11 @@ export default function NoteCard(props) {
   const handleShareOpen = () => {
     setShareOpen(true);
   };
-  const handleShareClose = () => {
+  const handleShareClose = (shared) => {
+    if (shared) {
+      props.handleUpdate();
+    }
+
     setShareOpen(false);
   };
 
