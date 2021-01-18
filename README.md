@@ -40,20 +40,20 @@
 
 ## API Calls
 
-- GET /notes
-- GET /notes/:id
-- GET /notes/:id/contents
-- PUT /notes/:id
-- POST /notes
-- POST /notes/:id/share/:email
-- DELETE /notes/:id
-- GET /groups
-- GET /groups/:id
-- GET /groups/:id/members
-- POST /groups
-- POST /groups/:id/members/:email
-- DELETE /groups/:id
-- DELETE /groups//:id/members/:email
+- GET api/notes
+- GET api/notes/:id
+- GET api/notes/:id/contents
+- PUT api/notes/:id
+- POST api/notes
+- POST api/notes/:id/share/students/:email
+- DELETE api/notes/:id/share/groups/:name
+- GET api/groups
+- GET api/groups/:id
+- GET api/groups/:id/members
+- POST api/groups
+- POST api/groups/:id/members/:email
+- DELETE api/groups/:id
+- DELETE api/groups//:id/members/:email
 
 ## User Actions
 
@@ -73,5 +73,5 @@
 - clone project with `git clone`
 - run `npm install` in both the `/api` and the `/notebee` directories
 - configure .env files in both the `/api` and the `/notebee` directories according to the .env.sample files
-- send a `GET` request to `${API}/db/creation` to create the database
+- send a `GET` request to `${API}/api/test/db/creation` to create the database
 - run `npm start` in both the `/api` and the `/notebee` directories
